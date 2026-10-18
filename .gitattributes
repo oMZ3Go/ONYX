@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.woff2 binary
+# Keep archived owner inputs byte-for-byte across checkouts.
+00_PROJECT_BRIEF_AR.md -text
+01_CODEX_START_PROMPT.md -text
+docs/phase-00/master-request.md -text whitespace=cr-at-eol

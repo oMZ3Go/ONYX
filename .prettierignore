@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.cache/
+coverage/
+out/
+dist/
+package-lock.json
+next-env.d.ts
+*.tsbuildinfo
+# Preserve historical input files byte-for-byte.
+00_PROJECT_BRIEF_AR.md
+01_CODEX_START_PROMPT.md
+docs/phase-00/master-request.md

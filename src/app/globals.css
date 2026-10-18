@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+@theme inline {
+  --color-canvas: var(--onyx-canvas);
+  --color-surface: var(--onyx-surface);
+  --color-ink: var(--onyx-ink);
+  --color-muted: var(--onyx-muted);
+  --color-accent: var(--onyx-accent);
+  --color-line: var(--onyx-line);
+  --color-focus: var(--onyx-focus);
+  --font-sans: var(--onyx-font-sans);
+}
+
+body {
+  background: var(--onyx-canvas);
+  color: var(--onyx-ink);
+  font-family: var(--onyx-font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--onyx-focus);
+  outline-offset: 5px;
+}

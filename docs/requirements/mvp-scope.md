@@ -1,0 +1,19 @@
+# Proposed first-release scope
+
+Product requirements are confirmed; the release split below is **R**, pending owner review. Deferring a capability requires an explicit recorded scope decision before implementation.
+
+| Area        | Proposed MVP                                                                                                                                               | Deferred / excluded                                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Discovery   | Responsive pages listed in PRD, dynamic categories/featured templates/offers, deep links and accurate availability                                         | Recommendations, wishlists, customer profiles                                                                   |
+| Catalog     | Limited owner-approved SKUs, per-variant availability, sizing and fabric descriptions                                                                      | Multi-warehouse inventory; stock tracking optional until owner decides                                          |
+| Editing     | Both sides, images/text/shapes, transforms, multi-select/groups, alignment/distribution, layers, lock/duplicate/delete, grid/snapping, undo/redo, zoom/pan | 3D, brush painting, general photo editing                                                                       |
+| Text        | Arabic and English editable text, validated licensed font set                                                                                              | Arbitrary customer fonts until security/licensing and rendering are proven                                      |
+| Images      | Validated PNG/JPEG, alpha preservation, quality warnings                                                                                                   | Dithering, background removal, advanced adjustments; basic grayscale/contrast/brightness may follow core editor |
+| Persistence | Two automatic IndexedDB slots, explicit backup/import/export, garment preview download                                                                     | Cloud draft accounts or cross-device synchronization                                                            |
+| Printing    | Supplier-approved, separate per-side transparent exports and operator validation                                                                           | Automatic gang sheets, inferred RIP/white ink/color conversions                                                 |
+| Ordering    | One garment design/variant per request initially (R), authoritative quote, private project/preview, idempotent draft and scoped link                       | Cart/multi-item UX unless owner approves, payment gateway, automatic messaging                                  |
+| Admin       | Essential catalog, pricing, template, content, order state, roles/audit, demand notice and pause controls                                                  | Advanced analytics, marketing automation                                                                        |
+
+Phase 00 implements none of these business workflows. It implements a static starter route and engineering tools only. Playwright suites arrive with real journeys; no canvas, Supabase, state, animation, or component-library dependency is needed yet.
+
+First-release gates: all committed MVP acceptance criteria pass; real sample prints approved; stock/pricing and policies supplied; supplier/network feasibility verified; security and recovery tests pass; owner approves preview/deployment separately. See [roadmap](../roadmap/phases.md).

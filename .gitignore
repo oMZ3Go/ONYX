@@ -1,0 +1,33 @@
+# Dependencies and generated output
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local secrets (only the safe template is tracked)
+.env*
+!.env.example
+*.pem
+*.key
+.aws/
+.codex/
+.agents/
+
+# Local tooling, provider state, logs and OS files
+.cache/
+.npm/
+.vercel/
+.supabase/
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Customer artwork is never source code
+*.onyx
