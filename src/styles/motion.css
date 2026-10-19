@@ -1,0 +1,219 @@
+/* Enhancement-only overlays: the server-rendered heading is the complete fallback. */
+.selection-box {
+  position: absolute;
+  inset: -4px -5px;
+  border: 1px solid var(--onyx-blue);
+  opacity: 0;
+  pointer-events: none;
+}
+.selection-box i {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--onyx-white);
+  border: 1px solid var(--onyx-accent-ink);
+  translate: -50% -50%;
+}
+.selection-box i:nth-child(1) {
+  left: 0;
+  top: 0;
+}
+.selection-box i:nth-child(2) {
+  left: 50%;
+  top: 0;
+}
+.selection-box i:nth-child(3) {
+  left: 100%;
+  top: 0;
+}
+.selection-box i:nth-child(4) {
+  left: 100%;
+  top: 50%;
+}
+.selection-box i:nth-child(5) {
+  left: 100%;
+  top: 100%;
+}
+.selection-box i:nth-child(6) {
+  left: 50%;
+  top: 100%;
+}
+.selection-box i:nth-child(7) {
+  left: 0;
+  top: 100%;
+}
+.selection-box i:nth-child(8) {
+  left: 0;
+  top: 50%;
+}
+[data-selected="true"] > .selection-box {
+  opacity: 1;
+}
+.designer-cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 8;
+  opacity: 0;
+  pointer-events: none;
+  width: 25px;
+  height: 31px;
+}
+[data-locale="ar"] .designer-cursor svg {
+  transform: scaleX(-1);
+}
+.designer-cursor > span {
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--onyx-blue);
+  border-radius: 50%;
+  opacity: 0;
+}
+.designer-cursor[data-click="true"] > span {
+  opacity: 0.7;
+}
+.color-menu {
+  position: absolute;
+  z-index: 7;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 214px;
+  padding: 6px;
+  border: 1px solid var(--onyx-line-dark);
+  border-radius: 9px;
+  background: var(--onyx-surface);
+  box-shadow: 0 12px 35px var(--onyx-shadow);
+  pointer-events: none;
+}
+.color-menu > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px;
+  border-radius: 5px;
+  font-size: 11px;
+  color: var(--onyx-white);
+}
+.color-menu i {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.color-menu [data-color="white"] i {
+  background: var(--onyx-white);
+}
+.color-menu [data-color="gray"] i {
+  background: var(--onyx-gray);
+}
+.color-menu [data-color="blue"] i {
+  background: var(--onyx-blue);
+}
+.color-menu code {
+  font-size: 10px;
+  direction: ltr;
+  margin-inline-start: auto;
+  color: var(--onyx-muted-light);
+}
+.color-menu [data-chosen="true"] {
+  background: var(--onyx-navy);
+}
+.hero-cta[data-pulse="true"] {
+  box-shadow: 0 0 0 7px var(--onyx-glow);
+}
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--onyx-muted-light);
+  font-size: 11px;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  margin-block-start: 16px;
+}
+.motion-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .header-inner {
+    animation: header-enter 600ms var(--onyx-ease) both;
+  }
+  .hero-environment {
+    animation: environment-enter 900ms ease-out both;
+  }
+  .hero-entrance {
+    animation: artwork-enter 1100ms var(--onyx-ease) both;
+  }
+  .hero-description,
+  .hero-actions,
+  .hero-detail {
+    animation: copy-enter 850ms 100ms var(--onyx-ease) backwards;
+  }
+}
+@keyframes header-enter {
+  from {
+    opacity: 0.6;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes environment-enter {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes artwork-enter {
+  from {
+    opacity: 0.25;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes copy-enter {
+  from {
+    opacity: 0.6;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .designer-cursor,
+  .color-menu,
+  .selection-box,
+  .motion-toggle {
+    display: none !important;
+  }
+  .headline-line {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .headline-accent {
+    color: var(--onyx-blue) !important;
+  }
+}
+html[data-motion-paused="true"] {
+  scroll-behavior: auto;
+}
+html[data-motion-paused="true"] *,
+html[data-motion-paused="true"] *::after {
+  animation-play-state: paused !important;
+}

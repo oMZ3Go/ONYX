@@ -2,6 +2,8 @@
 
 Baseline: 2026-10-18. Phase 00 establishes a reviewable foundation; it does not implement the commercial platform.
 
+Current local scope, 2026-10-19: [Phase 01 implementation and localization conventions](phase-01/implementation.md), [Arabic verification/delivery report](phase-01/report-ar.md), and [asset inventory](phase-01/asset-inventory.json). The newer owner brief authorizes the complete bilingual landing page; its amendment takes precedence over older unresolved locale/palette and roadmap statements. Historical Phase 00 findings remain historical evidence.
+
 ## Authority and status
 
 The [master request](phase-00/master-request.md) supersedes conflicting statements in [the original brief](../00_PROJECT_BRIEF_AR.md) and [the original kickoff](../01_CODEX_START_PROMPT.md). Both originals and the [brand reference](brand/onyx-brand-reference.jpeg) are preserved unchanged. Despite its filename, the original Arabic brief currently contains English prose.

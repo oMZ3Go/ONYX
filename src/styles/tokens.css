@@ -1,12 +1,29 @@
-/* PROVISIONAL: replace centrally after the owner supplies the official brand kit.
-   These values and system fonts are not an ONYX brand specification. */
+/* Official ONYX primitives; supporting shades serve contrast and atmosphere. */
 :root {
-  --onyx-canvas: #101b27;
-  --onyx-surface: #192938;
-  --onyx-ink: #f2f2ed;
-  --onyx-muted: #b7c6cf;
-  --onyx-accent: #a6c6d4;
-  --onyx-line: #526875;
-  --onyx-focus: #d3e8f0;
-  --onyx-font-sans: Tahoma, Arial, sans-serif;
+  --onyx-charcoal: #243136;
+  --onyx-navy: #1a3651;
+  --onyx-blue: #8aa9ba;
+  --onyx-gray: #dddddd;
+  --onyx-white: #ffffff;
+  --onyx-canvas: #0e202b;
+  --onyx-surface: #162c38;
+  --onyx-ink: #142b39;
+  --onyx-paper: #eef0f2;
+  --onyx-card: #f8f9fa;
+  --onyx-photo: #dce2e6;
+  --onyx-muted: #546774;
+  --onyx-muted-light: #bac8d1;
+  --onyx-accent: var(--onyx-blue);
+  --onyx-accent-ink: #3c647b;
+  --onyx-line: #cbd4d9;
+  --onyx-line-dark: #3d535f;
+  --onyx-focus: #648ca7;
+  --onyx-glow: rgb(138 169 186 / 28%);
+  --onyx-shadow: rgb(14 32 43 / 14%);
+  --onyx-font-sans: var(--font-inter), Arial, sans-serif;
+  --onyx-font-arabic: var(--font-arabic), var(--font-inter), Tahoma, Arial, sans-serif;
+  --onyx-radius: 12px;
+  --onyx-max-width: 1256px;
+  --onyx-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --onyx-duration: 280ms;
 }

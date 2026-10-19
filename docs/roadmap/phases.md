@@ -1,5 +1,7 @@
 # Delivery roadmap and phase gates
 
+Phase 01 scope amendment (2026-10-19): the owner's newer brief authorizes a complete local bilingual animated landing page, including read-only catalog fixtures, motion, testing and CI. This supersedes the narrower P01 design-only deliverables below without authorizing the editor, database, real ordering or any deployment. [Current evidence](../phase-01/report-ar.md) records the scoped outcome. Subsequent phases still require explicit continuation.
+
 Status: **R** execution plan, with Phase 00 authorized now. Every later phase requires the owner's review of the preceding gate and explicit continuation. No dates/costs are promised before requirements and staffing are known. Completion means evidenced behavior, not just generated files.
 
 ## Dependency-aware order

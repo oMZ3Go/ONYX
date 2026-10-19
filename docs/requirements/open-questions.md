@@ -1,5 +1,7 @@
 # Open decisions and assumptions
 
+Phase 01 resolutions (2026-10-19): U-01 palette/logo/landing imagery have been supplied and integrated; typography approval and usage-rights/business review remain owner matters. U-05 is resolved: Arabic default RTL, English LTR, both mandatory from this page onward. The historical rows below are retained as the Phase 00 register; other catalog/pricing/contact/policy/printing decisions remain unresolved. See [Phase 01 conventions](../phase-01/implementation.md).
+
 No invented SKUs, prices, official palette, supplier dimensions or production policies are approved by this document.
 
 | ID   | Status / decision                                                                                                            | Responsible                 | Needed by / impact                                                                          |

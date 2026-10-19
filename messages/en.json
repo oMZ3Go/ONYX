@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "title": "ONYX — Custom Hoodies. Your Style, Your Story.",
+    "description": "Turn your ideas into wearable art. Explore ONYX custom hoodies, graphic inspiration and a style that is entirely yours."
+  },
+  "common": {
+    "skip": "Skip to content",
+    "start": "Start Designing",
+    "explore": "Explore Collection",
+    "customize": "Customize",
+    "back": "Back to collection",
+    "homeLabel": "ONYX home",
+    "imageMissing": "Image coming soon",
+    "unavailable": "Currently unavailable",
+    "available": "Available",
+    "colors": "Colors",
+    "pause": "Pause animations",
+    "play": "Play animations"
+  },
+  "nav": {
+    "label": "Main navigation",
+    "home": "Home",
+    "shop": "Shop",
+    "templates": "Templates",
+    "offers": "Offers",
+    "about": "About",
+    "contact": "Contact",
+    "open": "Open menu",
+    "close": "Close menu",
+    "language": "Choose language"
+  },
+  "hero": {
+    "eyebrow": "CUSTOM HOODIES",
+    "line1": "Design Your",
+    "line2": "Own Hoodie.",
+    "description": "Turn your ideas into wearable art. Premium custom hoodies designed around your style, your story, and your imagination.",
+    "image": "Navy and blue ONYX hoodies, shown together",
+    "detail": "YOUR IDEAS. YOUR IDENTITY.",
+    "white": "White",
+    "gray": "Light Gray",
+    "blue": "Primary Blue"
+  },
+  "featured": {
+    "eyebrow": "THE ONYX EDIT",
+    "title": "Fan",
+    "accent": "Favorites",
+    "description": "A canvas for your next idea.",
+    "preview": "Design preview · the same Drip Logo design is shown in four presentation cards.",
+    "productImage": "Navy Drip Logo hoodie with a light blue ONYX graphic"
+  },
+  "categories": {
+    "eyebrow": "FIND YOUR INSPIRATION",
+    "title": "Explore by",
+    "accent": "Category",
+    "description": "Five directions. A style that is yours.",
+    "cars": { "title": "Cars", "description": "For the love of the drive." },
+    "anime": { "title": "Anime", "description": "Your world. Your characters." },
+    "typography": { "title": "Typography", "description": "Words worth wearing." },
+    "minimal": { "title": "Minimal", "description": "Quiet details. Bold identity." },
+    "abstract": { "title": "Abstract", "description": "Art without boundaries." }
+  },
+  "process": {
+    "eyebrow": "FROM AN IDEA TO YOUR HOODIE",
+    "title": "How It Works",
+    "choose": {
+      "title": "Choose",
+      "description": "Select a hoodie or start from an existing design."
+    },
+    "design": {
+      "title": "Design",
+      "description": "Make it yours with graphics, text, colors, and the available customization options."
+    },
+    "order": {
+      "title": "Order",
+      "description": "Once the studio is available, send your design through the ONYX WhatsApp ordering workflow."
+    }
+  },
+  "offer": {
+    "eyebrow": "MADE FOR YOUR IMAGINATION",
+    "title": "Your Style.",
+    "accent": "Your Rules.",
+    "description": "Create something uniquely yours with ONYX.",
+    "image": "ONYX hoodie with an illustrated sleeve"
+  },
+  "story": {
+    "eyebrow": "OUR STORY",
+    "title": "More Than",
+    "accent": "Hoodies.",
+    "description": "Style is personal. What you wear can carry an idea, a feeling, a little piece of who you are. ONYX brings creativity and streetwear together, giving your imagination a place beyond the page.",
+    "closing": "Create. Express. Wear your story.",
+    "image": "Model wearing an ONYX hoodie on a city rooftop",
+    "creativity": "Driven by creativity",
+    "identity": "Made for individuality",
+    "expression": "Room for expression"
+  },
+  "studio": {
+    "eyebrow": "YOUR NEXT IDEA STARTS HERE",
+    "title": "Design Studio coming soon",
+    "description": "We are creating a space to make your hoodie your own. This is a temporary preview; customization and order submission are not available yet."
+  },
+  "footer": {
+    "tagline": "Custom hoodies for your ideas, your style, your story.",
+    "explore": "Explore ONYX",
+    "brand": "The brand",
+    "contact": "Get in touch",
+    "contactNotice": "Official contact and WhatsApp details will be added before ordering opens.",
+    "copyright": "ONYX. All rights reserved.",
+    "signature": "CREATE. EXPRESS. BELONG.",
+    "top": "Back to top"
+  }
+}

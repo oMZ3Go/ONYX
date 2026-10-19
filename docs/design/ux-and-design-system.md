@@ -1,5 +1,7 @@
 # UX direction, editor structure and provisional design system
 
+Phase 01 update (2026-10-19): the owner supplied official PNG logos, four brand colors and all landing artwork. Arabic is the default RTL locale; English is LTR. The shared landing page, semantic tokens and responsive motion are now implemented. [Implementation conventions](../phase-01/implementation.md) supersede the provisional storefront/token/locale statements below; editor proposals remain future work.
+
 Status: direction **R**; brand preservation and mobile-first behavior **C**. Official identity/locale choices remain U-01/U-05. Phase 00 is a foundation screen, not the commercial homepage.
 
 ## Experience and information architecture

@@ -1,5 +1,7 @@
 # Product requirements document
 
+Phase 01 update (2026-10-19): the localized landing page and official identity are implemented locally. Arabic default/English secondary are confirmed. Featured data remains a labeled single-product preview. [Current scope and decisions](../phase-01/implementation.md) supersede the older brand-pending and Phase-00-only statements; business workflows below remain future requirements.
+
 Status: consolidated requirements for owner review, 2026-10-18. Labels follow [documentation status](../README.md).
 
 ## Product and customers

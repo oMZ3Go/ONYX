@@ -1,5 +1,7 @@
 # Software requirements specification
 
+Phase 01 update (2026-10-19): bilingual UI is now confirmed and implemented for the landing page (`/ar` RTL, `/en` LTR). FR-01 presentation and FR-22 official token/asset integration have local implementations; administrable content, real catalogs, studio and orders are still future requirements. See [current implementation](../phase-01/implementation.md) and [verification](../phase-01/report-ar.md).
+
 Status: required future behavior, not a statement of implemented features. **C** unless explicitly labeled **R**. [Acceptance criteria](acceptance-criteria.md) provide observable gates; [quality requirements](non-functional-requirements.md) apply across modules.
 
 | ID    | Requirement                                                                                                                                                                         | Module             |
