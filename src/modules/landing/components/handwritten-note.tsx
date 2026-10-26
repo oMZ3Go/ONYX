@@ -18,7 +18,7 @@ export function HandwrittenNote({
       data-reveal="note"
       data-delay={delay}
     >
-      <Image {...asset} alt="" sizes={sizes} />
+      <Image draggable={false} {...asset} alt="" sizes={sizes} />
     </div>
   );
 }

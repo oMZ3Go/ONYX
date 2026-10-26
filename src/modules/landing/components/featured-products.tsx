@@ -2,6 +2,7 @@ import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n/messages";
 import type { FeaturedCatalog } from "@/modules/catalog/contracts";
 import { ProductCard } from "./product-card";
+import { BrushArtwork } from "@/components/brush-artwork";
 export function FeaturedProducts({
   locale,
   messages: m,
@@ -13,6 +14,10 @@ export function FeaturedProducts({
 }) {
   return (
     <section id="collection" className="featured section-light" aria-labelledby="featured-title">
+      <div className="paper-atmosphere" aria-hidden="true">
+        <span className="atmosphere-light" data-ambient="paper" />
+        <BrushArtwork id="featured-brush" />
+      </div>
       <div className="container">
         <div className="section-heading" data-reveal>
           <div>

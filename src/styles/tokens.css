@@ -22,8 +22,22 @@
   --onyx-shadow: rgb(14 32 43 / 14%);
   --onyx-font-sans: var(--font-inter), Arial, sans-serif;
   --onyx-font-arabic: var(--font-arabic), var(--font-inter), Tahoma, Arial, sans-serif;
+  --font-heading: var(--font-display), var(--onyx-font-sans);
+  --font-heading-arabic: var(--font-display-arabic), var(--onyx-font-arabic);
+  --font-body: var(--onyx-font-sans);
+  --font-body-arabic: var(--onyx-font-arabic);
   --onyx-radius: 12px;
   --onyx-max-width: 1256px;
   --onyx-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --onyx-duration: 280ms;
+  --motion-fast: 200ms;
+  --motion-hover: 320ms;
+  --motion-reveal: 720ms;
+  --motion-stagger: 100ms;
+  --motion-ambient: 10000ms;
+  --motion-gradient: 3900ms;
+  --motion-offer-gradient: 5700ms;
+  --motion-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --hover-scale: 1.04;
+  --header-height: 88px;
 }

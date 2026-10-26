@@ -22,10 +22,14 @@ export function AnimatedHeroHeadline({
       <p className="eyebrow">{copy.eyebrow}</p>
       <h1 id="hero-title" className="hero-headline" aria-label={`${copy.line1} ${copy.line2}`}>
         <span className="headline-line" aria-hidden="true">
+          <span className="headline-echo">{copy.line1}</span>
+          <span className="headline-echo">{copy.line1}</span>
           {copy.line1}
           <Selection />
         </span>
         <span className="headline-line headline-accent" aria-hidden="true">
+          <span className="headline-echo">{copy.line2}</span>
+          <span className="headline-echo">{copy.line2}</span>
           {copy.line2}
           <Selection />
         </span>
@@ -33,7 +37,7 @@ export function AnimatedHeroHeadline({
       </h1>
       <p className="hero-description">{copy.description}</p>
       <div className="hero-actions">
-        <a href="#design-studio" className="button button-primary hero-cta">
+        <a href="#design-studio" className="button button-primary design-cta hero-cta">
           {common.start}
           <Icon name="arrow" className="directional" />
         </a>
@@ -45,6 +49,14 @@ export function AnimatedHeroHeadline({
         <span />
         {copy.detail}
       </p>
+      <ul className="hero-values">
+        {(["freedom", "design", "identity"] as const).map((key, index) => (
+          <li key={key} data-reveal="value" data-delay={index * 100}>
+            <Icon name={key === "freedom" ? "spark" : key === "design" ? "palette" : "person"} />
+            <span>{copy.values[key]}</span>
+          </li>
+        ))}
+      </ul>
       <div className="color-menu" aria-hidden="true">
         {(
           [

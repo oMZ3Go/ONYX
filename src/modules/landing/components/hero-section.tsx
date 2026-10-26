@@ -9,6 +9,7 @@ export function HeroSection({ locale, messages: m }: { locale: Locale; messages:
     <section id="home" className="hero" aria-labelledby="hero-title" data-motion-section>
       <div className="hero-environment">
         <Image
+          draggable={false}
           src={assets.hero.background.src}
           alt=""
           fill
@@ -20,17 +21,20 @@ export function HeroSection({ locale, messages: m }: { locale: Locale; messages:
       <div className="container hero-layout">
         <AnimatedHeroHeadline key={locale} locale={locale} copy={m.hero} common={m.common} />
         <div className="hero-artwork">
-          <div className="hero-glow" />
           <div className="hero-entrance">
             <div className="hero-float" data-float="hero">
-              <div className="hero-hover">
-                <Image
-                  {...assets.hero.hoodies}
-                  alt={m.hero.image}
-                  sizes="(max-width: 767px) 100vw, (max-width: 1100px) 60vw, 62vw"
-                  loading="eager"
-                  fetchPriority="high"
-                />
+              <div className="hero-magnet">
+                <div className="hero-glow" aria-hidden="true" />
+                <div className="hero-hover">
+                  <Image
+                    draggable={false}
+                    {...assets.hero.hoodies}
+                    alt={m.hero.image}
+                    sizes="(max-width: 699px) 88vw, (max-width: 1023px) 640px, 62vw"
+                    loading="eager"
+                    fetchPriority="high"
+                  />
+                </div>
               </div>
             </div>
           </div>

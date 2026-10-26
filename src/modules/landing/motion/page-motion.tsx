@@ -1,6 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/icon";
+import { initializeProcess } from "./process-dom";
+import { initializeReveals } from "./reveal-motion";
+import { initializeCategoryDots } from "./category-dots";
+import { initializeHeroMagnet } from "./hero-magnet";
+import { initializeLogoMotion } from "./logo-motion";
+import { durationMilliseconds } from "./css-duration";
 export function PageMotion({
   pause,
   play,
@@ -15,135 +21,153 @@ export function PageMotion({
     const reduced = matchMedia("(prefers-reduced-motion: reduce)"),
       fine = matchMedia("(hover: hover) and (pointer: fine)");
     const animations = new Map<Element, Animation>(),
-      visible = new Set<Element>(),
-      reveals = new Set<Animation>();
-    let parallaxFrame = 0;
-    const disabled = () =>
-      reduced.matches || document.documentElement.dataset.motionPaused === "true";
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries)
-          if (entry.isIntersecting) {
-            revealObserver.unobserve(entry.target);
-            if (disabled()) continue;
-            const element = entry.target as HTMLElement,
-              kind = element.dataset.reveal,
-              sign = locale === "ar" ? 1 : -1;
-            const transform =
-              kind === "side"
-                ? `translateX(${sign * 22}px)`
-                : kind === "note"
-                  ? `translate(${sign * 10}px, 8px) scale(.94)`
-                  : kind === "card"
-                    ? "translateY(22px) scale(.985)"
-                    : "translateY(18px)";
-            const animation = element.animate(
-              [
-                { opacity: 0, transform },
-                { opacity: 1, transform: "none" },
-              ],
-              {
-                duration: 720,
-                delay: Number(element.dataset.delay || 0),
-                easing: "cubic-bezier(.22,1,.36,1)",
-                fill: "backwards",
-              },
-            );
-            reveals.add(animation);
-            animation.onfinish = () => {
-              reveals.delete(animation);
-              animation.cancel();
-            };
-            const connector = element.querySelector(".step-connector");
-            if (kind === "step" && connector && fine.matches) {
-              const line = connector.animate(
-                [
-                  { opacity: 0, transform: "scaleX(.4)" },
-                  { opacity: 1, transform: "scaleX(1)" },
-                ],
-                {
-                  duration: 650,
-                  delay: 200 + Number(element.dataset.delay || 0),
-                  easing: "ease-out",
-                  fill: "backwards",
-                },
-              );
-              reveals.add(line);
-              line.onfinish = () => {
-                reveals.delete(line);
-                line.cancel();
-              };
-            }
-          }
-      },
-      { threshold: 0.12 },
+      visible = new Set<Element>();
+    const disposeReveals = initializeReveals(locale);
+    const disposePointer = initializeCategoryDots();
+    const disposeMagnet = initializeHeroMagnet();
+    const disposeLogos = initializeLogoMotion();
+    const tokens = getComputedStyle(document.documentElement);
+    const revealMs = durationMilliseconds(tokens.getPropertyValue("--motion-reveal"), 720);
+    const ambientMs = durationMilliseconds(tokens.getPropertyValue("--motion-ambient"), 10000);
+    const gradientMs = durationMilliseconds(tokens.getPropertyValue("--motion-gradient"), 3900);
+    const offerGradientMs = durationMilliseconds(
+      tokens.getPropertyValue("--motion-offer-gradient"),
+      5700,
     );
-    document.querySelectorAll("[data-reveal]").forEach((el) => revealObserver.observe(el));
-    const floats = document.querySelectorAll<HTMLElement>("[data-float]");
+    const manual = () => document.documentElement.dataset.motionPaused === "true";
+    const layers = [...document.querySelectorAll<HTMLElement>("[data-float], [data-ambient]")];
+    const processRoot = document.querySelector<HTMLElement>("[data-process]");
+    const process = processRoot ? initializeProcess(processRoot) : undefined;
+    const story = document.querySelector<HTMLElement>(".story-artwork");
+    const parallaxLayers = [...document.querySelectorAll<HTMLElement>("[data-parallax]")];
+    const cards = [...document.querySelectorAll<HTMLElement>(".product-card")];
+    let parallaxFrame = 0;
     const sync = () => {
-      for (const element of floats) {
+      if (parallaxFrame && (reduced.matches || manual() || document.hidden || !fine.matches)) {
+        cancelAnimationFrame(parallaxFrame);
+        parallaxFrame = 0;
+      }
+      for (const element of layers) {
         let animation = animations.get(element);
-        if (disabled() || !fine.matches) {
+        const type = element.dataset.float || element.dataset.ambient;
+        const product = type === "product-edge";
+        const orbit = type === "orbit";
+        const phase = Number(element.dataset.phase || 0);
+        const card = product ? element.closest(".product-card") : null;
+        const engaged =
+          !product ||
+          !!card?.matches(":focus-within") ||
+          (fine.matches && !!card?.matches(":hover"));
+        if (reduced.matches || (!fine.matches && element.dataset.float)) {
           animation?.cancel();
           animations.delete(element);
           continue;
         }
-        if (!animation) {
-          const type = element.dataset.float;
+        if (!animation && engaged && visible.has(element) && !manual() && !document.hidden) {
           const frames =
             type === "hero"
-              ? [{ transform: "translateY(0)" }, { transform: "translateY(-10px)" }]
+              ? [
+                  { transform: "translateY(0)" },
+                  { transform: "translateY(var(--hero-float-travel, -16px))" },
+                ]
               : type === "offer"
-                ? [{ transform: "translateX(-4px)" }, { transform: "translateX(4px)" }]
-                : [
-                    { transform: "scale(1) translateY(0)" },
-                    { transform: "scale(1.02) translateY(-2px)" },
-                  ];
+                ? [{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }]
+                : type === "story"
+                  ? [
+                      { transform: "scale(1) translateY(0)" },
+                      { transform: "scale(1.028) translateY(-3px)" },
+                    ]
+                  : type === "edge" || product
+                    ? [{ "--gradient-angle": "0deg" }, { "--gradient-angle": "360deg" }]
+                    : orbit
+                      ? [
+                          { transform: `rotate(${phase}deg)` },
+                          { transform: `rotate(${phase + 360}deg)` },
+                        ]
+                      : type === "product-surface"
+                        ? [
+                            { transform: "translate3d(-10%,-5%,0)" },
+                            { transform: "translate3d(10%,5%,0)" },
+                          ]
+                        : type === "paper"
+                          ? [
+                              { transform: "translate3d(-8%,0,0)", opacity: 0.35 },
+                              { transform: "translate3d(8%,4%,0)", opacity: 0.7 },
+                            ]
+                          : [
+                              { transform: "translate3d(-9%,3%,0) rotate(-4deg)", opacity: 0.6 },
+                              { transform: "translate3d(9%,-3%,0) rotate(4deg)", opacity: 1 },
+                            ];
           animation = element.animate(frames, {
-            duration: type === "hero" ? 3500 : type === "offer" ? 4000 : 4500,
-            direction: "alternate",
+            duration:
+              type === "hero"
+                ? 3500
+                : type === "offer"
+                  ? 4000
+                  : type === "story"
+                    ? 4500
+                    : type === "edge"
+                      ? offerGradientMs
+                      : product
+                        ? gradientMs
+                        : orbit
+                          ? Number(element.dataset.period)
+                          : ambientMs,
+            direction: type === "edge" || product || orbit ? "normal" : "alternate",
             iterations: Infinity,
-            easing: "ease-in-out",
+            easing: type === "edge" || product || orbit ? "linear" : "ease-in-out",
+            delay: type === "hero" ? 800 : type === "offer" || type === "edge" ? revealMs + 150 : 0,
           });
           animations.set(element, animation);
         }
-        if (document.hidden || !visible.has(element)) animation.pause();
-        else animation.play();
+        if (animation) {
+          if (manual() || document.hidden || !visible.has(element) || !engaged) animation.pause();
+          else animation.play();
+        }
       }
-      for (const animation of reveals) {
-        if (disabled()) animation.finish();
-        else if (document.hidden) animation.pause();
-        else animation.play();
-      }
-      if (disabled())
-        document
-          .querySelectorAll<HTMLElement>("[data-parallax]")
-          .forEach((el) => el.style.removeProperty("transform"));
+      process?.sync({
+        reduced: reduced.matches,
+        paused: manual(),
+        hidden: document.hidden,
+        visible: !!processRoot && visible.has(processRoot),
+      });
+      if (reduced.matches || !fine.matches)
+        parallaxLayers.forEach((el) => el.style.removeProperty("transform"));
     };
-    const floatObserver = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) visible.add(entry.target);
-          else visible.delete(entry.target);
+          if (entry.isIntersecting) {
+            visible.add(entry.target);
+          } else visible.delete(entry.target);
         }
         sync();
       },
-      { threshold: 0 },
+      { threshold: 0.08 },
     );
-    floats.forEach((el) => floatObserver.observe(el));
-    const story = document.querySelector<HTMLElement>(".story-artwork");
+    const observed = new Set<Element>(layers);
+    if (processRoot) observed.add(processRoot);
+    observed.forEach((el) => observer.observe(el));
     const parallax = () => {
-      if (parallaxFrame || disabled() || document.hidden || !fine.matches || !story) return;
+      if (
+        parallaxFrame ||
+        reduced.matches ||
+        manual() ||
+        document.hidden ||
+        !fine.matches ||
+        !story
+      )
+        return;
       parallaxFrame = requestAnimationFrame(() => {
         parallaxFrame = 0;
         const rect = story.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > innerHeight) return;
-        const progress = Math.max(
+        const p = Math.max(
           -1,
           Math.min(1, (rect.top + rect.height / 2 - innerHeight / 2) / innerHeight),
         );
-        story.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => {
-          el.style.transform = `translateY(${progress * (el.dataset.parallax === "background" ? 14 : -7)}px)`;
+        parallaxLayers.forEach((el) => {
+          el.style.transform = `translateY(${p * (el.dataset.parallax === "background" ? 18 : -9)}px)`;
         });
       });
     };
@@ -152,18 +176,30 @@ export function PageMotion({
     reduced.addEventListener("change", sync);
     fine.addEventListener("change", sync);
     window.addEventListener("scroll", parallax, { passive: true });
+    cards.forEach((card) => {
+      for (const event of ["pointerenter", "pointerleave", "focusin", "focusout"])
+        card.addEventListener(event, sync);
+    });
     sync();
     return () => {
-      revealObserver.disconnect();
-      floatObserver.disconnect();
+      observer.disconnect();
       animations.forEach((a) => a.cancel());
-      reveals.forEach((a) => a.cancel());
+      disposeReveals();
+      disposePointer();
+      disposeLogos();
+      disposeMagnet();
+      process?.dispose();
       cancelAnimationFrame(parallaxFrame);
+      parallaxLayers.forEach((el) => el.style.removeProperty("transform"));
       document.removeEventListener("visibilitychange", sync);
       document.removeEventListener("onyx-motion-change", sync);
       reduced.removeEventListener("change", sync);
       fine.removeEventListener("change", sync);
       window.removeEventListener("scroll", parallax);
+      cards.forEach((card) => {
+        for (const event of ["pointerenter", "pointerleave", "focusin", "focusout"])
+          card.removeEventListener(event, sync);
+      });
       delete document.documentElement.dataset.motionPaused;
     };
   }, [locale]);

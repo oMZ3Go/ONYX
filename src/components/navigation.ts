@@ -6,3 +6,11 @@ export const navigation = [
   ["about", "#about"],
   ["contact", "#contact"],
 ] as const;
+export const navigationIcons = {
+  home: "home",
+  shop: "hanger",
+  templates: "grid",
+  offers: "tag",
+  about: "person",
+  contact: "message",
+} as const;

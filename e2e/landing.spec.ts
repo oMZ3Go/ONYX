@@ -1,4 +1,4 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect, type Page } from "./browser-test";
 import en from "../messages/en.json";
 import ar from "../messages/ar.json";
 const dictionaries = { ar, en };
@@ -19,7 +19,7 @@ for (const locale of ["ar", "en"] as const)
     await page.locator(".hero-artwork").hover();
     await expect(page.locator(".hero-hover")).toHaveCSS(
       "transform",
-      "matrix(1.03, 0, 0, 1.03, 0, 0)",
+      "matrix(1.04, 0, 0, 1.04, 0, 0)",
     );
     await expect(page.locator(".hero-glow")).toHaveCSS("opacity", "1");
     for (const type of ["offer", "story"]) {
@@ -36,11 +36,13 @@ for (const locale of ["ar", "en"] as const)
     }
     await page.locator(".motion-toggle").click();
     await expect(page.locator(".motion-toggle")).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator(".hero-copy")).toHaveAttribute("data-phase", "static");
+    await expect(page.locator(".hero-copy")).toHaveAttribute("data-paused", "true");
     expect(
       await page
         .locator("[data-float]")
-        .evaluateAll((elements) => elements.every((el) => el.getAnimations().length === 0)),
+        .evaluateAll((elements) =>
+          elements.every((el) => el.getAnimations().every((a) => a.playState === "paused")),
+        ),
     ).toBe(true);
     await page.locator(".motion-toggle").click();
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
@@ -141,7 +143,9 @@ async function headlineFrame(page: Page) {
   return page.locator(".hero-copy").evaluate((root) => ({
     phase: root.getAttribute("data-phase"),
     elements: [
-      ...root.querySelectorAll("h1, .headline-line, .designer-cursor, .color-menu, .hero-cta"),
+      ...root.querySelectorAll(
+        "h1, .headline-line, .designer-cursor, .designer-cursor > span, .cursor-trail, .color-menu, .hero-cta",
+      ),
     ].map((element) => ({
       style: element.getAttribute("style"),
       selected: element.getAttribute("data-selected"),
@@ -199,7 +203,7 @@ for (const locale of ["ar", "en"] as const) {
       if (message.type() === "error") errors.push(message.text());
     });
     await page.emulateMedia({ reducedMotion: "reduce" });
-    for (const width of [320, 390, 768, 1024, 1440]) {
+    for (const width of [320, 390, 768, 1024, 1440, 1920]) {
       await page.setViewportSize({ width, height: 950 });
       await page.goto(`/${locale}`);
       await hydrate(page);
@@ -223,7 +227,7 @@ for (const locale of ["ar", "en"] as const) {
       ).toBe(true);
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.screenshot({
-        path: `.cache/phase-01/final-${locale}-${width}.png`,
+        path: `.cache/phase-01.1/final-${locale}-${width}.png`,
         fullPage: true,
       });
     }
@@ -270,7 +274,7 @@ for (const locale of ["ar", "en"] as const) {
     await expect(nojs).toHaveURL(/#design-studio$/);
     await context.close();
   });
-  test(`${locale}: deterministic complete headline sequence and 30-second hold`, async ({
+  test(`${locale}: deterministic complete headline sequence and 15-second hold`, async ({
     page,
   }) => {
     const hero = await startHeadlineClock(page, locale);
@@ -280,13 +284,22 @@ for (const locale of ["ar", "en"] as const) {
     await page.clock.runFor(1500);
     await expect(hero).toHaveAttribute("data-phase", "drag-first");
     await expect(page.locator(".headline-line").first()).toHaveAttribute("data-selected", "true");
+    expect(
+      await page
+        .locator(".headline-line")
+        .first()
+        .locator(".headline-echo")
+        .first()
+        .evaluate((el) => Number(getComputedStyle(el).opacity)),
+    ).toBeGreaterThan(0.02);
+    await expect(page.locator(".headline-line").first()).toHaveCSS("filter", "none");
     await page.clock.runFor(2500);
     await expect(hero).toHaveAttribute("data-phase", "drag-second");
     await page.clock.runFor(1800);
     await expect(hero).toHaveAttribute("data-phase", "palette");
     await expect(page.locator(".headline-accent")).toHaveCSS("color", "rgb(255, 255, 255)");
     await expect(page.locator(".color-menu > div")).toHaveCount(3);
-    await page.screenshot({ path: `.cache/phase-01/palette-${locale}.png` });
+    await page.screenshot({ path: `.cache/phase-01.1/palette-${locale}.png` });
     await page.clock.runFor(1100);
     await expect(page.locator(".headline-accent")).toHaveCSS("color", "rgb(138, 169, 186)");
     await expect(page.locator(".headline-line").first()).toHaveCSS("color", "rgb(255, 255, 255)");
@@ -296,7 +309,10 @@ for (const locale of ["ar", "en"] as const) {
     await page.clock.runFor(600);
     await expect(hero).toHaveAttribute("data-phase", "idle");
     await expect(page.locator(".designer-cursor")).toHaveCSS("opacity", "0");
-    await page.clock.runFor(29800);
+    for (const echo of await page.locator(".headline-echo").all())
+      await expect(echo).toHaveCSS("opacity", "0");
+    await expect(page.locator("h1")).toHaveCount(1);
+    await page.clock.runFor(14800);
     await expect(hero).toHaveAttribute("data-phase", "idle");
     await page.clock.runFor(300);
     await expect(hero).toHaveAttribute("data-phase", "return");
@@ -312,6 +328,46 @@ for (const locale of ["ar", "en"] as const) {
     );
   });
 }
+for (const locale of ["ar", "en"] as const)
+  test(`${locale}: click flash, palette folding and manual freeze share the headline clock`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const hero = await startHeadlineClock(page, locale);
+    await page.clock.runFor(4912);
+    await expect(hero).toHaveAttribute("data-phase", "context");
+    await expect(page.locator(".designer-cursor")).toHaveAttribute("data-click", "true");
+    expect(
+      await page
+        .locator(".designer-cursor > span")
+        .evaluate((el) => Number(getComputedStyle(el).opacity)),
+    ).toBeGreaterThan(0);
+    await page.evaluate(() =>
+      (document.querySelector(".motion-toggle") as HTMLButtonElement).click(),
+    );
+    const frozen = await headlineFrame(page);
+    await page.clock.runFor(30000);
+    expect(await headlineFrame(page)).toEqual(frozen);
+    await page.evaluate(() =>
+      (document.querySelector(".motion-toggle") as HTMLButtonElement).click(),
+    );
+    await page.clock.runFor(600);
+    const menu = page.locator(".color-menu");
+    await expect(menu).toHaveAttribute("data-state", "opening");
+    const opening = await menu.evaluate((el) => Number(getComputedStyle(el).opacity));
+    expect(opening).toBeGreaterThan(0);
+    expect(opening).toBeLessThan(1);
+    await page.clock.runFor(1100);
+    await expect(menu).toHaveAttribute("data-state", "closing");
+    await expect(page.locator('[data-color="blue"]')).toHaveAttribute("data-chosen", "true");
+    const closing = await menu.evaluate((el) => Number(getComputedStyle(el).opacity));
+    expect(closing).toBeGreaterThan(0);
+    expect(closing).toBeLessThan(1);
+    await page.clock.runFor(200);
+    await expect(menu).toHaveCSS("opacity", "0");
+    await expect(page.locator(".headline-line").first()).toHaveCSS("color", "rgb(255, 255, 255)");
+  });
+
 test("language switch preserves query, anchor, remembered locale and updates all sections", async ({
   page,
 }) => {
@@ -385,7 +441,10 @@ for (const locale of ["ar", "en"] as const)
     const menu = await page.locator(".color-menu").boundingBox();
     expect(menu!.x).toBeGreaterThanOrEqual(0);
     expect(menu!.x + menu!.width).toBeLessThanOrEqual(320);
-    await page.screenshot({ path: `.cache/phase-01/palette-${locale}-320.png` });
+    // Owner-approved contextual overlap with copy must never reach the real CTA.
+    const actions = await page.locator(".hero-actions").boundingBox();
+    expect(menu!.y + menu!.height).toBeLessThan(actions!.y);
+    await page.screenshot({ path: `.cache/phase-01.1/palette-${locale}-320.png` });
     const pausedPalette = await headlineFrame(page);
     await setDocumentHidden(page, true);
     await page.clock.runFor(60000);
@@ -422,7 +481,7 @@ for (const locale of ["ar", "en"] as const)
     await page.clock.runFor(60000);
     expect(await headlineFrame(page)).toEqual(pausedIdle);
     await setDocumentHidden(page, false);
-    await page.clock.runFor(29800);
+    await page.clock.runFor(14800);
     await expect(hero).toHaveAttribute("data-phase", "idle");
     await page.clock.runFor(300);
     await expect(hero).toHaveAttribute("data-phase", "return");

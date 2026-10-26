@@ -9,11 +9,12 @@ import { fixtureCatalog, sampleProduct } from "@/modules/catalog/fixture-provide
 import { ProductCard } from "./components/product-card";
 import { FeaturedProducts } from "./components/featured-products";
 import { CategoryGrid } from "./components/category-grid";
+import { getLandingCategories } from "./categories";
 import { AnimatedHeroHeadline } from "./motion/animated-hero-headline";
 import { assets } from "./assets";
 import { SiteHeader } from "@/components/site-header";
 import { navigation } from "@/components/navigation";
-import type { ProductDisplay } from "@/modules/catalog/contracts";
+import { formatPrice, type ProductDisplay } from "@/modules/catalog/contracts";
 vi.mock("next/navigation", () => ({
   usePathname: () => "/en",
   useRouter: () => ({ push: vi.fn() }),
@@ -55,6 +56,55 @@ describe("localization and navigation", () => {
     });
 });
 describe("catalog boundary and actual assets", () => {
+  for (const [locale, messages] of [
+    ["en", en],
+    ["ar", ar],
+  ] as const) {
+    it(`${locale}: exposes honest missing metadata and renders verified provider attributes`, () => {
+      const missing = renderToStaticMarkup(
+        <ProductCard product={sampleProduct} locale={locale} labels={messages.common} />,
+      );
+      for (const text of [
+        messages.common.colorsSoon,
+        messages.common.sizesSoon,
+        messages.common.priceSoon,
+        messages.common.preview,
+      ])
+        expect(missing).toContain(text);
+      expect(missing).not.toContain('class="product-colors"');
+      expect(missing).not.toContain('class="product-sizes"');
+      const verified: ProductDisplay = {
+        ...sampleProduct,
+        category: { slug: "test", title: { en: "Test category", ar: "تصنيف الاختبار" } },
+        colors: [{ id: "blue", hex: "#234567", label: { en: "Test blue", ar: "أزرق للاختبار" } }],
+        sizes: [{ id: "size", label: { en: "Test size", ar: "مقاس الاختبار" } }],
+        price: { minorUnits: 12345, currency: "KWD", scale: 3 },
+      };
+      const html = renderToStaticMarkup(
+        <ProductCard product={verified} locale={locale} labels={messages.common} />,
+      );
+      for (const text of [
+        verified.category!.title[locale],
+        verified.colors![0]!.label[locale],
+        verified.sizes![0]!.label[locale],
+        formatPrice(verified.price!, locale),
+      ])
+        expect(html).toContain(text);
+      for (const text of [
+        messages.common.colorsSoon,
+        messages.common.sizesSoon,
+        messages.common.priceSoon,
+      ])
+        expect(html).not.toContain(text);
+      expect(html).toContain('class="sr-only"');
+      expect(html).not.toContain('role="button"');
+    });
+  }
+  it("formats supplied integer minor units using the currency scale", () => {
+    expect(formatPrice({ minorUnits: 12345, currency: "USD", scale: 2 }, "en")).toBe("$123.45");
+    expect(formatPrice({ minorUnits: 12345, currency: "JPY", scale: 0 }, "en")).toBe("¥12,345");
+    expect(formatPrice({ minorUnits: 10, currency: "USD", scale: 2 }, "en")).toBe("$0.10");
+  });
   it("uses one fixture object across four unique presentation slots", async () => {
     const data = await fixtureCatalog.getFeatured();
     expect(data.slots).toHaveLength(4);
@@ -94,12 +144,45 @@ describe("catalog boundary and actual assets", () => {
     expect((html.match(/data-product-id=/g) || []).length).toBe(1);
     expect(html).not.toContain(en.featured.preview);
   });
-  it("renders five non-link categories using the corresponding artwork", () => {
-    const html = renderToStaticMarkup(<CategoryGrid copy={en.categories} />);
+  it("renders five honest category preview destinations using the corresponding artwork", () => {
+    const html = renderToStaticMarkup(
+      <CategoryGrid
+        copy={en.categories}
+        locale="en"
+        categories={getLandingCategories(en.categories)}
+      />,
+    );
     expect((html.match(/<article/g) || []).length).toBe(5);
-    expect(html).not.toContain("href=");
+    expect(html).toContain('href="/en/categories/cars"');
     for (const key of Object.keys(assets.categories)) expect(html).toContain(`category-${key}`);
   });
+  for (const [locale, messages] of [
+    ["en", en],
+    ["ar", ar],
+  ] as const) {
+    it(`${locale}: accepts ordered category display data and omits unpublished entries`, () => {
+      const initial = getLandingCategories(messages.categories);
+      const title = locale === "ar" ? "تصنيف جديد" : "New category";
+      const categories = [
+        { ...initial[2]!, id: "stable-new-id", slug: "new-style", title },
+        { ...initial[4]!, id: "unpublished-id", published: false },
+        initial[0]!,
+      ];
+      const html = renderToStaticMarkup(
+        <CategoryGrid copy={messages.categories} locale={locale} categories={categories} />,
+      );
+      expect([...html.matchAll(/data-category-id="([^"]+)"/g)].map((match) => match[1])).toEqual([
+        "stable-new-id",
+        "cars",
+      ]);
+      expect(html).toContain(title);
+      expect(html).toContain(`href="/${locale}/categories/new-style"`);
+      expect(html).toContain("category-typography.webp");
+      expect(html).not.toContain("unpublished-id");
+      expect(html).not.toContain("category-abstract.webp");
+      expect(categories).toHaveLength(3);
+    });
+  }
   it("preserves original hashes and all official logo files", () => {
     const inventory = JSON.parse(readFileSync("docs/phase-01/asset-inventory.json", "utf8")) as {
       source: string;

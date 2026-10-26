@@ -25,6 +25,7 @@ export interface ProductDisplay {
     readonly label: LocalizedText;
     readonly hex: string;
   }[];
+  readonly sizes?: readonly { readonly id: string; readonly label: LocalizedText }[];
   readonly variants?: readonly { readonly id: string; readonly availability: Availability }[];
 }
 /** Slots are presentation identities, never additional domain products. */
@@ -38,6 +39,13 @@ export interface FeaturedCatalog {
 }
 export interface CatalogReader {
   getFeatured(): Promise<FeaturedCatalog>;
+}
+/** Optional editorial presentation only; supplied by a future verified campaign provider. */
+export interface CampaignDisplay {
+  readonly headline: LocalizedText;
+  readonly description: LocalizedText;
+  readonly label?: LocalizedText;
+  readonly cta: { readonly label: LocalizedText; readonly href: string };
 }
 export function formatPrice(price: DisplayPrice, locale: Locale) {
   return new Intl.NumberFormat(locale, {

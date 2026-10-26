@@ -1,5 +1,5 @@
 /** Deterministic whole-object animation. Durations are active, visible milliseconds. */
-export const IDLE_MS = 30_000;
+export const IDLE_MS = 15_000;
 export const headlinePhases = [
   { name: "empty", duration: 450 },
   { name: "exit-first", duration: 550 },
@@ -74,7 +74,7 @@ export function createTimelineLoop(
     const total = elapsed + scheduler.now() - started;
     let frame = frameAt(total);
     if (frame.phase === "idle" && lastPhase !== "idle") {
-      // Start the full 30 seconds at the frame that actually hides the cursor.
+      // Start the full 15 seconds at the frame that actually hides the cursor.
       elapsed = Math.floor(total / CYCLE_MS) * CYCLE_MS + IDLE_START_MS;
       started = scheduler.now();
       frame = frameAt(elapsed);

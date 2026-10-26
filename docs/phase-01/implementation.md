@@ -1,5 +1,7 @@
 # Phase 01 — Landing page implementation
 
+Historical baseline. The current refinements, including the 15-second headline hold and confirmed contact information, are documented in [Phase 01.1](../phase-01.1/implementation.md). Durations and verification below describe Phase 01 as delivered.
+
 Status: local Phase 01 implementation, finalized for owner review on 2026-10-20. This scope is authorized by the owner's Phase 01 brief and bilingual amendment, superseding the older roadmap's documentation-only P01 scope. The finalization pass is limited to review, verification, browser-path reliability and documentation; a separate visual/motion refinement phase awaits approval. No editor, backend, ordering, commit, push, merge or deployment is included.
 
 ## Recovery checkpoint

@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { HeroSection } from "@/modules/landing/components/hero-section";
 import { FeaturedProducts } from "@/modules/landing/components/featured-products";
 import { CategoryGrid } from "@/modules/landing/components/category-grid";
+import { getLandingCategories } from "@/modules/landing/categories";
 import { HowItWorks } from "@/modules/landing/components/how-it-works";
 import { OfferBanner } from "@/modules/landing/components/offer-banner";
 import { BrandStory } from "@/modules/landing/components/brand-story";
@@ -35,9 +36,13 @@ export default async function LandingPage({ params }: Props) {
       <main id="main-content" tabIndex={-1}>
         <HeroSection locale={locale} messages={m} />
         <FeaturedProducts locale={locale} messages={m} catalog={featured} />
-        <CategoryGrid copy={m.categories} />
+        <CategoryGrid
+          copy={m.categories}
+          locale={locale}
+          categories={getLandingCategories(m.categories)}
+        />
         <HowItWorks locale={locale} copy={m.process} />
-        <OfferBanner copy={m.offer} start={m.common.start} />
+        <OfferBanner copy={m.offer} start={m.common.start} locale={locale} />
         <BrandStory copy={m.story} />
         <section
           id="design-studio"

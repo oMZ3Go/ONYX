@@ -11,9 +11,10 @@ export function BrandStory({ copy }: { copy: Messages["story"] }) {
       aria-labelledby="story-title"
       data-motion-section
     >
-      <div className="story-artwork">
+      <div className="story-artwork" data-reveal="scene">
         <div className="story-background" data-parallax="background">
           <Image
+            draggable={false}
             src={assets.story.background.src}
             alt=""
             fill
@@ -23,6 +24,7 @@ export function BrandStory({ copy }: { copy: Messages["story"] }) {
         <div className="story-model-position" data-parallax="model">
           <div className="story-model" data-float="story">
             <Image
+              draggable={false}
               {...assets.story.model}
               alt={copy.image}
               sizes="(max-width: 767px) 100vw, 50vw"

@@ -37,7 +37,7 @@ describe("headline design sequence", () => {
     );
     loop.resume();
     expect(render.mock.lastCall?.[0].phase).toBe("idle");
-    vi.advanceTimersByTime(29999);
+    vi.advanceTimersByTime(14999);
     expect(render).toHaveBeenCalledTimes(1);
     vi.advanceTimersByTime(1);
     expect(render.mock.lastCall?.[0].phase).toBe("return");
@@ -52,24 +52,24 @@ describe("headline design sequence", () => {
     expect(frameAt(6500).phase).toBe("color");
     expect(frameAt(8000).phase).toBe("pulse");
     expect(frameAt(8400).phase).toBe("fade");
-    expect(frameAt(39500).phase).toBe("select-all");
-    expect(frameAt(40000).phase).toBe("delete");
+    expect(frameAt(24500).phase).toBe("select-all");
+    expect(frameAt(25000).phase).toBe("delete");
     expect(frameAt(CYCLE_MS).phase).toBe("empty");
   });
-  it("reserves exactly 30000 ms after the cursor is fully gone", () => {
-    expect(IDLE_MS).toBe(30000);
+  it("reserves exactly 15000 ms after the cursor is fully gone", () => {
+    expect(IDLE_MS).toBe(15000);
     expect(frameAt(IDLE_START_MS - 1).phase).toBe("fade");
-    expect(frameAt(IDLE_START_MS).remaining).toBe(30000);
-    expect(frameAt(IDLE_START_MS + 29999).phase).toBe("idle");
-    expect(frameAt(IDLE_START_MS + 30000).phase).toBe("return");
+    expect(frameAt(IDLE_START_MS).remaining).toBe(15000);
+    expect(frameAt(IDLE_START_MS + 14999).phase).toBe("idle");
+    expect(frameAt(IDLE_START_MS + 15000).phase).toBe("return");
   });
-  it("sleeps during idle and gives it a full 30 seconds despite frame rounding", () => {
+  it("sleeps during idle and gives it a full 15 seconds despite frame rounding", () => {
     const { loop, render } = setup();
     loop.resume();
     vi.advanceTimersByTime(8560);
     expect(render.mock.lastCall?.[0].phase).toBe("idle");
     const calls = render.mock.calls.length;
-    vi.advanceTimersByTime(29999);
+    vi.advanceTimersByTime(14999);
     expect(render).toHaveBeenCalledTimes(calls);
     vi.advanceTimersByTime(1);
     expect(render.mock.lastCall?.[0].phase).toBe("return");

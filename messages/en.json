@@ -15,7 +15,12 @@
     "available": "Available",
     "colors": "Colors",
     "pause": "Pause animations",
-    "play": "Play animations"
+    "play": "Play animations",
+    "colorsSoon": "Colors coming soon",
+    "sizes": "Sizes",
+    "sizesSoon": "Sizes coming soon",
+    "priceSoon": "Price coming soon",
+    "preview": "Preview"
   },
   "nav": {
     "label": "Main navigation",
@@ -38,7 +43,12 @@
     "detail": "YOUR IDEAS. YOUR IDENTITY.",
     "white": "White",
     "gray": "Light Gray",
-    "blue": "Primary Blue"
+    "blue": "Primary Blue",
+    "values": {
+      "freedom": "Creative Freedom",
+      "design": "Your Design",
+      "identity": "Your Identity"
+    }
   },
   "featured": {
     "eyebrow": "THE ONYX EDIT",
@@ -53,11 +63,29 @@
     "title": "Explore by",
     "accent": "Category",
     "description": "Five directions. A style that is yours.",
-    "cars": { "title": "Cars", "description": "For the love of the drive." },
-    "anime": { "title": "Anime", "description": "Your world. Your characters." },
-    "typography": { "title": "Typography", "description": "Words worth wearing." },
-    "minimal": { "title": "Minimal", "description": "Quiet details. Bold identity." },
-    "abstract": { "title": "Abstract", "description": "Art without boundaries." }
+    "soon": "Coming soon",
+    "notice": "This is a preview of our creative direction. Category collections are still in the making; products and ordering are not available here yet.",
+    "back": "Back to categories",
+    "cars": {
+      "title": "Cars",
+      "description": "For the love of the drive."
+    },
+    "anime": {
+      "title": "Anime",
+      "description": "Your world. Your characters."
+    },
+    "typography": {
+      "title": "Typography",
+      "description": "Words worth wearing."
+    },
+    "minimal": {
+      "title": "Minimal",
+      "description": "Quiet details. Bold identity."
+    },
+    "abstract": {
+      "title": "Abstract",
+      "description": "Art without boundaries."
+    }
   },
   "process": {
     "eyebrow": "FROM AN IDEA TO YOUR HOODIE",
@@ -103,7 +131,16 @@
     "explore": "Explore ONYX",
     "brand": "The brand",
     "contact": "Get in touch",
-    "contactNotice": "Official contact and WhatsApp details will be added before ordering opens.",
+    "contactNotice": "You can message us anytime.",
+    "location": "Damascus, Syria",
+    "follow": "Follow Us",
+    "socialNotice": "Official social links coming soon.",
+    "social": {
+      "instagram": "Instagram",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "tiktok": "TikTok"
+    },
     "copyright": "ONYX. All rights reserved.",
     "signature": "CREATE. EXPRESS. BELONG.",
     "top": "Back to top"
