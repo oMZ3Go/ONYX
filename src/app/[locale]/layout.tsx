@@ -31,7 +31,8 @@ const arabicDisplay = localFont({
   variable: "--font-display-arabic",
   display: "swap",
   weight: "100 900",
-  preload: false,
+  // Arabic headings are visible on the first paint; fetch their font with the body fonts.
+  preload: true,
 });
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

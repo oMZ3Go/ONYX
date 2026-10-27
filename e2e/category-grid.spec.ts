@@ -112,7 +112,7 @@ for (const locale of ["en", "ar"] as const) {
             const shift = entry as PerformanceEntry & {
               value: number;
               sources: {
-                node: Element;
+                node: Node | null;
                 previousRect: DOMRectReadOnly;
                 currentRect: DOMRectReadOnly;
               }[];
@@ -122,13 +122,19 @@ for (const locale of ["en", "ar"] as const) {
               value: shift.value,
               time: shift.startTime,
               fonts: document.fonts.status,
-              sources: shift.sources.map((source) => ({
-                tag: source.node?.tagName,
-                className: source.node?.className,
-                text: source.node?.textContent?.slice(0, 80),
-                previous: source.previousRect,
-                current: source.currentRect,
-              })),
+              sources: shift.sources.map((source) => {
+                // Text nodes are common font-swap sources; retain their owning element.
+                const element =
+                  source.node instanceof Element ? source.node : source.node?.parentElement;
+                return {
+                  tag: element?.tagName,
+                  className: element?.className,
+                  section: element?.closest("section")?.id,
+                  text: source.node?.textContent?.slice(0, 80),
+                  previous: source.previousRect,
+                  current: source.currentRect,
+                };
+              }),
             });
           }
         }).observe({ type: "layout-shift", buffered: true });
@@ -229,6 +235,13 @@ for (const locale of ["en", "ar"] as const) {
           .evaluateAll((images) =>
             Promise.all(images.map((image) => (image as HTMLImageElement).decode())),
           );
+        // Let decoded images paint and the existing observer receive any pending shifts.
+        await page.evaluate(
+          () =>
+            new Promise<void>((resolve) =>
+              requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+            ),
+        );
         const after = await cards.evaluateAll((elements) =>
           elements.map((element) => ({
             width: element.getBoundingClientRect().width,

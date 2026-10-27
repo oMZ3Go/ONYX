@@ -1,5 +1,7 @@
 # Phase 01.1 — final implementation and verification
 
+**CI follow-up — 27 October 2026:** Phase 01.1 was committed and pushed as `c00e7ba57efe339d5ba360ea55084428c8e12972`. See [Arabic font loading and Linux CI](ci-font-loading.md) for the subsequent Actions failure, traced heading-font cause, focused correction and fresh verification. The record below describes the preceding local release review.
+
 **Dynamic Category Grid completed and verified — 26 October 2026.** Workspace `D:\ONYX`, branch `feat/landing-motion-refinement`, HEAD `84ddf57aaa3b96e46a81281fceb21974dd9584f9`. Final test build: `RhTEEj7Sl7VsE5on2Q47v`. No staging, commit, push, PR, merge or deployment was performed. The branch is ready for owner approval.
 
 ## Dynamic category data and rendering
