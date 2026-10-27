@@ -126,11 +126,14 @@ for (const locale of ["en", "ar"] as const) {
       await expect.poll(() => animation.evaluate((a) => a.playState)).toBe("paused");
     }
     await page.emulateMedia({ reducedMotion: "reduce" });
-    expect(
-      await page
-        .locator(".category-orbit,.product-ambient")
-        .evaluateAll((els) => els.reduce((n, el) => n + el.getAnimations().length, 0)),
-    ).toBe(0);
+    // Media emulation returns before the browser delivers matchMedia's change event.
+    await expect
+      .poll(() =>
+        page
+          .locator(".category-orbit,.product-ambient")
+          .evaluateAll((els) => els.reduce((n, el) => n + el.getAnimations().length, 0)),
+      )
+      .toBe(0);
     await expect(page.locator(".category-orbits")).toHaveCSS("display", "none");
     await expect(page.locator(".product-ambient").first()).toHaveCSS("transform", "none");
   });

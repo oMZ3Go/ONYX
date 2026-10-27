@@ -1,0 +1,47 @@
+/* Preserve next/font's previous Arial metrics for non-Arabic fallback glyphs. */
+@font-face {
+  font-family: "ONYX Arabic Body Fallback";
+  src: local("Arial");
+  ascent-override: 137.4%;
+  descent-override: 73.8%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
+}
+
+/* Noto Sans Arabic: UPM 1000, ascent 1374, descent 738, line gap 0.
+   Include spaces: mixing their unadjusted metrics back in moves Arabic baselines. */
+@font-face {
+  font-family: "ONYX Arabic Body Fallback";
+  src: local("Tahoma"), local("DejaVu Sans");
+  ascent-override: 137.4%;
+  descent-override: 73.8%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
+  unicode-range:
+    U+0020, U+00A0, U+0600-06FF, U+0750-077F, U+0870-089F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+10E60-10E7F, U+10EC0-10EFF, U+1EE00-1EEFF;
+}
+
+@font-face {
+  font-family: "ONYX Arabic Heading Fallback";
+  src: local("Arial");
+  ascent-override: 96.8%;
+  descent-override: 25.1%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
+}
+
+/* Alexandria: UPM 1000, ascent 968, descent 251, line gap 0.
+   Width calibration from rendered headings: 120.6%; divide vertical overrides by 1.206.
+   The calibration and delayed-font evidence are recorded in ci-font-loading.md. */
+@font-face {
+  font-family: "ONYX Arabic Heading Fallback";
+  src: local("Tahoma"), local("DejaVu Sans");
+  ascent-override: 80.2653%;
+  descent-override: 20.8126%;
+  line-gap-override: 0%;
+  size-adjust: 120.6%;
+  unicode-range:
+    U+0020, U+00A0, U+0600-06FF, U+0750-077F, U+0870-089F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF,
+    U+10E60-10E7F, U+10EC0-10EFF, U+1EE00-1EEFF;
+}

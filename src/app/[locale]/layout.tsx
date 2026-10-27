@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { direction, isLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/messages";
+import "../../styles/font-fallbacks.css";
 import "../globals.css";
 import "../../styles/refinements.css";
 
@@ -18,6 +19,8 @@ const arabic = localFont({
   variable: "--font-arabic",
   display: "swap",
   weight: "100 900",
+  adjustFontFallback: false,
+  fallback: ["ONYX Arabic Body Fallback"],
 });
 const display = localFont({
   src: "../../../public/fonts/space-grotesk-latin-variable.woff2",
@@ -31,6 +34,8 @@ const arabicDisplay = localFont({
   variable: "--font-display-arabic",
   display: "swap",
   weight: "100 900",
+  adjustFontFallback: false,
+  fallback: ["ONYX Arabic Heading Fallback"],
   // Arabic headings are visible on the first paint; fetch their font with the body fonts.
   preload: true,
 });
