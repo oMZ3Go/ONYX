@@ -94,6 +94,8 @@ for (const locale of ["ar", "en"] as const) {
     );
     const process = page.locator("[data-process]");
     await expect(process).toHaveAttribute("data-process-state", "entrance");
+    // Entrance is rendered while offscreen too; wait for visibility to resume the active clock.
+    await expect(process).toHaveAttribute("data-process-paused", "false");
     await page.clock.runFor(1500);
     await expect(process).toHaveAttribute("data-process-step", "2");
     await page.clock.runFor(2800);
@@ -103,12 +105,14 @@ for (const locale of ["ar", "en"] as const) {
     await page.evaluate(() =>
       (document.querySelector(".motion-toggle") as HTMLButtonElement).click(),
     );
+    await expect(process).toHaveAttribute("data-process-paused", "true");
     const frozen = await process.getAttribute("data-process-state");
     await page.clock.runFor(60000);
     await expect(process).toHaveAttribute("data-process-state", frozen!);
     await page.evaluate(() =>
       (document.querySelector(".motion-toggle") as HTMLButtonElement).click(),
     );
+    await expect(process).toHaveAttribute("data-process-paused", "false");
     await page.clock.runFor(1100);
     await expect(process).toHaveAttribute("data-process-state", "replay");
     for (const el of await process.locator(".step-title,p").all())
@@ -132,6 +136,7 @@ for (const locale of ["ar", "en"] as const) {
       Object.defineProperty(document, "hidden", { configurable: true, get: () => true });
       document.dispatchEvent(new Event("visibilitychange"));
     });
+    await expect(process).toHaveAttribute("data-process-paused", "true");
     const styles = await process.locator("li").evaluateAll((els) => els.map((el) => el.innerHTML));
     await page.clock.runFor(60000);
     expect(await process.locator("li").evaluateAll((els) => els.map((el) => el.innerHTML))).toEqual(
