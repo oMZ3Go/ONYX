@@ -1,0 +1,79 @@
+[
+  {
+    "source": "public/images/landing/design-studio/hoodie-back-navy.png",
+    "sha256": "603a2569d5d54acd0fa3bd2caf0c36a24d94eaca21a4e5ff29e3671394e5f867",
+    "originalBytes": 1546900,
+    "width": 1356,
+    "height": 1159,
+    "hasAlpha": true,
+    "outputWidth": 1200,
+    "outputHeight": 1026,
+    "webBytes": 88384
+  },
+  {
+    "source": "public/images/landing/design-studio/prints/print-crown.png",
+    "sha256": "f1b1fa26e3d72d36652db5d4cf4142a048080f6bafdd6eac4774f9d334445010",
+    "originalBytes": 73161,
+    "width": 364,
+    "height": 368,
+    "hasAlpha": true,
+    "outputWidth": 364,
+    "outputHeight": 368,
+    "webBytes": 18770
+  },
+  {
+    "source": "public/images/landing/design-studio/prints/print-dragon.png",
+    "sha256": "d118c66970fa497deae7f9efbdda2a5a764dbf4f1ee5977b1455e9e69773e160",
+    "originalBytes": 2162266,
+    "width": 1122,
+    "height": 1402,
+    "hasAlpha": true,
+    "outputWidth": 480,
+    "outputHeight": 600,
+    "webBytes": 169882
+  },
+  {
+    "source": "public/images/landing/design-studio/prints/print-nature.png",
+    "sha256": "814dfa43df8755fa4ee8aecdf426ae570e1716ccf5103f16262b6043e37fa30f",
+    "originalBytes": 1429623,
+    "width": 1356,
+    "height": 1160,
+    "hasAlpha": true,
+    "outputWidth": 600,
+    "outputHeight": 513,
+    "webBytes": 135000
+  },
+  {
+    "source": "public/images/landing/design-studio/prints/print-space.png",
+    "sha256": "a379334c87068bfff35f220848c72a3f592c06a8b976ff613a3f20a551177ea4",
+    "originalBytes": 1273013,
+    "width": 1443,
+    "height": 1090,
+    "hasAlpha": true,
+    "outputWidth": 600,
+    "outputHeight": 453,
+    "webBytes": 102908
+  },
+  {
+    "source": "public/images/landing/design-studio/decorations/brush-stroke.png",
+    "sha256": "a325293d59aabcdc202fc837a1e229be8ff1539f9456ef5f4617a12a2619f090",
+    "originalBytes": 1265213,
+    "width": 1672,
+    "height": 941,
+    "hasAlpha": true,
+    "outputWidth": 1000,
+    "outputHeight": 563,
+    "webBytes": 120052
+  },
+  {
+    "source": "public/images/landing/design-studio/decorations/brush-wave.png",
+    "sha256": "aadfa3ab5c0df09d483acc63d88ea8cbdcf9a38b934f7793bad940531c6249ee",
+    "originalBytes": 1879140,
+    "width": 2172,
+    "height": 724,
+    "hasAlpha": true,
+    "outputWidth": 1000,
+    "outputHeight": 333,
+    "webBytes": 91294
+  }
+]

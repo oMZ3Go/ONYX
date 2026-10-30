@@ -13,6 +13,7 @@ import { getLandingCategories } from "@/modules/landing/categories";
 import { HowItWorks } from "@/modules/landing/components/how-it-works";
 import { OfferBanner } from "@/modules/landing/components/offer-banner";
 import { BrandStory } from "@/modules/landing/components/brand-story";
+import { DesignStudioShowcase } from "@/modules/landing/components/design-studio-showcase";
 type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -44,23 +45,7 @@ export default async function LandingPage({ params }: Props) {
         <HowItWorks locale={locale} copy={m.process} />
         <OfferBanner copy={m.offer} start={m.common.start} locale={locale} />
         <BrandStory copy={m.story} />
-        <section
-          id="design-studio"
-          className="studio-notice section-light"
-          aria-labelledby="studio-title"
-          tabIndex={-1}
-        >
-          <div className="container">
-            <div>
-              <p className="eyebrow">{m.studio.eyebrow}</p>
-              <h2 id="studio-title">{m.studio.title}</h2>
-              <p>{m.studio.description}</p>
-            </div>
-            <a href="#collection" className="button button-ink">
-              {m.common.back}
-            </a>
-          </div>
-        </section>
+        <DesignStudioShowcase copy={m.studio} locale={locale} />
       </main>
       <SiteFooter messages={m} locale={locale} />
     </>

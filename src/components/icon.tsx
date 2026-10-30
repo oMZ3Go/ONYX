@@ -1,5 +1,10 @@
 import type { SVGProps } from "react";
 export type IconName =
+  | "pencil"
+  | "shirt"
+  | "adjustments"
+  | "text"
+  | "image"
   | "arrow"
   | "menu"
   | "close"
@@ -22,6 +27,11 @@ export type IconName =
   | "facebook"
   | "tiktok";
 const paths: Record<IconName, string> = {
+  pencil: "m16 3 5 5-12 12-6 1 1-6L16 3Zm-3 3 5 5M4 15l5 5",
+  shirt: "m8 3-6 4 3 5 3-2v11h8V10l3 2 3-5-6-4c-1 4-7 4-8 0Z",
+  adjustments: "M3 6h4m4 0h10M3 12h10m4 0h4M3 18h4m4 0h10M7 3v6m6 0v6M7 15v6",
+  text: "M4 6V3h16v3M12 3v18M8 21h8",
+  image: "M3 3h18v18H3V3Zm0 14 5-6 4 4 3-3 6 6M14 7h.01",
   arrow: "M4 12h16m-6-6 6 6-6 6",
   menu: "M4 7h16M4 12h16M4 17h16",
   close: "m6 6 12 12M6 18 18 6",

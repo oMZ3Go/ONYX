@@ -43,7 +43,7 @@ for (const locale of ["en", "ar"]) {
       page.locator(".motion-toggle").evaluate((el) => (el as HTMLButtonElement).click());
     await pause(); // Finish entrances before comparing actual screen geometry.
     await alignedPerimeters(page);
-    const offer = page.locator(".offer-frame");
+    const offer = page.locator("#offers .offer-frame");
     const edge = offer.locator("[data-ambient]");
     await offer.scrollIntoViewIfNeeded();
     await pause();

@@ -189,8 +189,9 @@ for (const locale of ["ar", "en"] as const) {
     await expect(page).toHaveURL(/#design-studio$/);
     await expect(page.locator("#studio-title")).toBeInViewport();
     await expect(page.locator("#design-studio")).toContainText(m.studio.description);
-    await page.locator("#design-studio .button").click();
-    await expect(page).toHaveURL(/#collection$/);
+    await page.locator("#design-studio summary").click();
+    await expect(page.locator(".studio-editor-notice")).toBeVisible();
+    await expect(page).toHaveURL(/#design-studio$/);
     await expect(page.locator(".product-card")).toHaveCount(4);
     await expect(page.locator(".category-card")).toHaveCount(5);
   });
@@ -359,7 +360,7 @@ for (const locale of ["ar", "en"] as const)
     expect(opening).toBeLessThan(1);
     await page.clock.runFor(1100);
     await expect(menu).toHaveAttribute("data-state", "closing");
-    await expect(page.locator('[data-color="blue"]')).toHaveAttribute("data-chosen", "true");
+    await expect(menu.locator('[data-color="blue"]')).toHaveAttribute("data-chosen", "true");
     const closing = await menu.evaluate((el) => Number(getComputedStyle(el).opacity));
     expect(closing).toBeGreaterThan(0);
     expect(closing).toBeLessThan(1);

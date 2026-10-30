@@ -8,6 +8,8 @@ Current local scope, 2026-10-19: [Phase 01 implementation and localization conve
 
 ## Authority and status
 
+2026-10-29 local Phase 02: [Design Studio Showcase implementation and verification](phase-02/implementation.md), with [approved-source hashes and optimized asset inventory](phase-02/asset-inventory.json). This is an interactive preview; the complete apparel editor remains future work.
+
 The [master request](phase-00/master-request.md) supersedes conflicting statements in [the original brief](../00_PROJECT_BRIEF_AR.md) and [the original kickoff](../01_CODEX_START_PROMPT.md). Both originals and the [brand reference](brand/onyx-brand-reference.jpeg) are preserved unchanged. Despite its filename, the original Arabic brief currently contains English prose.
 
 - **Confirmed (C):** explicitly required by the owner. This does not mean implemented.
