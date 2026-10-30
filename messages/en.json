@@ -123,18 +123,69 @@
   },
   "studio": {
     "eyebrow": "YOUR NEXT IDEA STARTS HERE",
-    "title": "Design Studio coming soon",
-    "description": "We are creating a space to make your hoodie your own. This is a temporary preview; customization and order submission are not available yet."
+    "title": "Design Studio",
+    "accent": "Turn Ideas into Your Own Hoodie.",
+    "description": "Choose an artwork, explore your style, and see your ideas come to life on your hoodie.",
+    "steps": {
+      "choose": {
+        "title": "Choose",
+        "description": "Pick your style"
+      },
+      "customize": {
+        "title": "Customize",
+        "description": "Explore graphics and colors"
+      },
+      "preview": {
+        "title": "Preview",
+        "description": "See it come to life"
+      }
+    },
+    "cta": "Open Design Studio",
+    "ctaSupport": "Make it yours",
+    "editorNotice": "Your ideas deserve their own space. The full Design Studio is on its way. For now, try the artwork previews above; text, uploads, color customization and ordering are not available yet.",
+    "hoodieAlt": "Back of a navy hoodie with a customizable artwork preview",
+    "artworksLabel": "Choose your artwork",
+    "artworks": {
+      "crown": "Crown",
+      "space": "Space",
+      "nature": "Nature",
+      "dragon": "Dragon"
+    },
+    "selected": "Selected artwork",
+    "tools": {
+      "label": "Design tools preview",
+      "text": "Text tool",
+      "image": "Image tool",
+      "artwork": "Choose artwork",
+      "garment": "Garment customization",
+      "adjustments": "Adjustments"
+    },
+    "colors": {
+      "label": "Garment color preview",
+      "navy": "Navy",
+      "blue": "Muted blue",
+      "gray": "Light gray",
+      "white": "White"
+    },
+    "previewNote": "A little preview of what you can create.",
+    "provisional": "Provisional showcase artwork. Not approved for commercial products."
   },
   "footer": {
+    "headline": "Wear your story.",
     "tagline": "Custom hoodies for your ideas, your style, your story.",
+    "founders": {
+      "title": "The Founders",
+      "mz": "MZ",
+      "tala": "Tala Jarkas",
+      "role": "Co-Founder"
+    },
     "explore": "Explore ONYX",
-    "brand": "The brand",
-    "contact": "Get in touch",
+    "brand": "The Brand",
+    "contact": "Get in Touch",
     "contactNotice": "You can message us anytime.",
     "location": "Damascus, Syria",
-    "follow": "Follow Us",
-    "socialNotice": "Official social links coming soon.",
+    "follow": "Follow the Journey",
+    "socialNotice": "Official social links",
     "social": {
       "instagram": "Instagram",
       "whatsapp": "WhatsApp",

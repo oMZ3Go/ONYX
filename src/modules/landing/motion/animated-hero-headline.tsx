@@ -4,6 +4,7 @@ import { Icon } from "@/components/icon";
 import { initializeHeadline } from "./headline-dom";
 import type { Locale } from "@/i18n/config";
 import type { Messages } from "@/i18n/messages";
+import { DesignerCursorGraphic } from "./designer-cursor-graphic";
 export function AnimatedHeroHeadline({
   locale,
   copy,
@@ -73,15 +74,7 @@ export function AnimatedHeroHeadline({
         ))}
       </div>
       <div className="designer-cursor" aria-hidden="true">
-        <svg width="25" height="31" viewBox="0 0 25 31" fill="none">
-          <path
-            d="M2 2v23l6-6 5 10 5-3-5-9h9L2 2Z"
-            fill="var(--onyx-white)"
-            stroke="var(--onyx-canvas)"
-            strokeWidth="1.5"
-          />
-        </svg>
-        <span />
+        <DesignerCursorGraphic />
       </div>
     </div>
   );

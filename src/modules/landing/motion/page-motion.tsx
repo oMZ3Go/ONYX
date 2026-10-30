@@ -37,12 +37,25 @@ export function PageMotion({
     const manual = () => document.documentElement.dataset.motionPaused === "true";
     const layers = [...document.querySelectorAll<HTMLElement>("[data-float], [data-ambient]")];
     const processRoot = document.querySelector<HTMLElement>("[data-process]");
+    const studioRoot = document.querySelector<HTMLElement>(".studio-scene");
+    const studioPanel = studioRoot?.closest<HTMLElement>(".studio-panel");
     const process = processRoot ? initializeProcess(processRoot) : undefined;
     const story = document.querySelector<HTMLElement>(".story-artwork");
     const parallaxLayers = [...document.querySelectorAll<HTMLElement>("[data-parallax]")];
     const cards = [...document.querySelectorAll<HTMLElement>(".product-card")];
     let parallaxFrame = 0;
     const sync = () => {
+      const studioVisible = !!studioRoot && visible.has(studioRoot);
+      if (studioPanel) {
+        if (reduced.matches || !fine.matches) delete studioPanel.dataset.studioMotion;
+        else
+          studioPanel.dataset.studioMotion =
+            studioVisible && !manual() && !document.hidden ? "running" : "paused";
+      }
+      // All studio layers share active time, so visibility and pause cannot desynchronize
+      // the opposite directions. Different panel amplitudes provide the depth variation.
+      const studioTime = layers.find((layer) => layer.dataset.float === "studio-garment");
+      const studioElapsed = studioTime ? Number(animations.get(studioTime)?.currentTime || 0) : 0;
       if (parallaxFrame && (reduced.matches || manual() || document.hidden || !fine.matches)) {
         cancelAnimationFrame(parallaxFrame);
         parallaxFrame = 0;
@@ -52,6 +65,8 @@ export function PageMotion({
         const type = element.dataset.float || element.dataset.ambient;
         const product = type === "product-edge";
         const orbit = type === "orbit";
+        const studio = type === "studio-garment" || type === "studio-panel";
+        const inView = studio ? studioVisible : visible.has(element);
         const phase = Number(element.dataset.phase || 0);
         const card = product ? element.closest(".product-card") : null;
         const engaged =
@@ -63,9 +78,15 @@ export function PageMotion({
           animations.delete(element);
           continue;
         }
-        if (!animation && engaged && visible.has(element) && !manual() && !document.hidden) {
-          const frames =
-            type === "hero"
+        if (!animation && engaged && inView && !manual() && !document.hidden) {
+          const frames = studio
+            ? [
+                { transform: "translateY(0)" },
+                {
+                  transform: `translateY(${type === "studio-garment" ? -9 : Number(element.dataset.studioTravel || 4)}px)`,
+                },
+              ]
+            : type === "hero"
               ? [
                   { transform: "translateY(0)" },
                   { transform: "translateY(var(--hero-float-travel, -16px))" },
@@ -99,8 +120,9 @@ export function PageMotion({
                               { transform: "translate3d(9%,-3%,0) rotate(4deg)", opacity: 1 },
                             ];
           animation = element.animate(frames, {
-            duration:
-              type === "hero"
+            duration: studio
+              ? 4000
+              : type === "hero"
                 ? 3500
                 : type === "offer"
                   ? 4000
@@ -119,9 +141,10 @@ export function PageMotion({
             delay: type === "hero" ? 800 : type === "offer" || type === "edge" ? revealMs + 150 : 0,
           });
           animations.set(element, animation);
+          if (studio) animation.currentTime = studioElapsed;
         }
         if (animation) {
-          if (manual() || document.hidden || !visible.has(element) || !engaged) animation.pause();
+          if (manual() || document.hidden || !inView || !engaged) animation.pause();
           else animation.play();
         }
       }
@@ -147,6 +170,7 @@ export function PageMotion({
     );
     const observed = new Set<Element>(layers);
     if (processRoot) observed.add(processRoot);
+    if (studioRoot) observed.add(studioRoot);
     observed.forEach((el) => observer.observe(el));
     const parallax = () => {
       if (
@@ -201,6 +225,7 @@ export function PageMotion({
           card.removeEventListener(event, sync);
       });
       delete document.documentElement.dataset.motionPaused;
+      if (studioPanel) delete studioPanel.dataset.studioMotion;
     };
   }, [locale]);
   return (
@@ -216,7 +241,10 @@ export function PageMotion({
       }}
     >
       <Icon name={paused ? "play" : "pause"} />
-      <span>{paused ? play : pause}</span>
+      <span className="motion-toggle-label">
+        <span aria-hidden={paused}>{pause}</span>
+        <span aria-hidden={!paused}>{play}</span>
+      </span>
     </button>
   );
 }

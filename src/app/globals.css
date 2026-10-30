@@ -772,92 +772,6 @@ h2 em {
   inset-inline-end: 17px;
   top: 30px;
 }
-.studio-notice {
-  padding-block: 36px;
-  border-block-start: 1px solid var(--onyx-line);
-}
-.studio-notice .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 36px;
-}
-.studio-notice h2 {
-  font-size: 25px;
-}
-.studio-notice p:not(.eyebrow) {
-  color: var(--onyx-muted);
-  font-size: 13px;
-  line-height: 1.9;
-  max-width: 720px;
-  margin-block-start: 10px;
-}
-.studio-notice .button {
-  flex-shrink: 0;
-}
-.site-footer {
-  background: var(--onyx-surface);
-  padding-block: 35px 20px;
-  color: var(--onyx-muted-light);
-}
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 0.9fr 1fr 1.3fr;
-  gap: 42px;
-}
-.footer-brand img {
-  width: 100px;
-}
-.footer-brand p {
-  max-width: 230px;
-  font-size: 12px;
-  line-height: 1.8;
-  margin-block-start: 12px;
-}
-.site-footer h2 {
-  font-size: 13px;
-  color: var(--onyx-white);
-  font-weight: 650;
-  margin-block-end: 13px;
-  letter-spacing: 0;
-}
-.site-footer nav a {
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  min-height: 36px;
-  font-size: 12px;
-}
-.site-footer a:hover {
-  color: var(--onyx-white);
-}
-.footer-contact > p {
-  font-size: 12px;
-  line-height: 1.9;
-  max-width: 270px;
-}
-.back-to-top {
-  display: inline-flex;
-  gap: 12px;
-  align-items: center;
-  min-height: 44px;
-  font-size: 12px;
-  margin-block-start: 12px;
-}
-.back-to-top svg {
-  rotate: -90deg;
-  width: 17px;
-}
-.footer-bottom {
-  border-block-start: 1px solid var(--onyx-line-dark);
-  margin-block-start: 30px;
-  padding-block-start: 20px;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  font-size: 10px;
-  letter-spacing: 0.03em;
-}
 @media (hover: hover) and (pointer: fine) {
   .button-primary:hover {
     background: var(--onyx-gray);
@@ -1062,9 +976,6 @@ h2 em {
     font-size: 9px;
     flex-direction: column;
     align-items: start;
-  }
-  .footer-grid {
-    gap: 26px;
   }
 }
 @media (max-width: 899px) and (min-width: 768px) {
@@ -1343,41 +1254,6 @@ h2 em {
   }
   .brand-values svg {
     width: 22px;
-  }
-  .studio-notice {
-    padding-block: 28px;
-  }
-  .studio-notice .container {
-    display: block;
-  }
-  .studio-notice h2 {
-    font-size: 24px;
-  }
-  .studio-notice .button {
-    margin-block-start: 20px;
-    font-size: 12px;
-  }
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px 24px;
-  }
-  .footer-brand,
-  .footer-contact {
-    grid-column: 1 / -1;
-  }
-  .footer-brand p {
-    max-width: 300px;
-  }
-  .footer-brand img {
-    width: 88px;
-  }
-  .site-footer nav a {
-    min-height: 44px;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    font-size: 10px;
-    gap: 12px;
   }
 }
 @media (max-width: 359px) {
