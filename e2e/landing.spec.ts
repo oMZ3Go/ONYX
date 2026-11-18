@@ -189,11 +189,11 @@ for (const locale of ["ar", "en"] as const) {
     await expect(page).toHaveURL(/#design-studio$/);
     await expect(page.locator("#studio-title")).toBeInViewport();
     await expect(page.locator("#design-studio")).toContainText(m.studio.description);
-    await page.locator("#design-studio summary").click();
-    await expect(page.locator(".studio-editor-notice")).toBeVisible();
-    await expect(page).toHaveURL(/#design-studio$/);
     await expect(page.locator(".product-card")).toHaveCount(4);
     await expect(page.locator(".category-card")).toHaveCount(5);
+    await page.locator(".studio-cta").click();
+    await expect(page).toHaveURL(new RegExp(`/${locale}/design-studio$`));
+    await expect(page.locator(".ds-canvas")).toBeVisible();
   });
   test(`${locale}: responsive images, no overflow, no mirroring or browser errors`, async ({
     page,

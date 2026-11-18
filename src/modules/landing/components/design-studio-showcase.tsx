@@ -4,6 +4,7 @@ import type { Messages } from "@/i18n/messages";
 import type { Locale } from "@/i18n/config";
 import { studioAssets } from "../studio/artworks";
 import { StudioScene } from "../studio/studio-scene";
+import { StudioEntryLink } from "@/modules/design-studio/components/studio-entry-link";
 import "@/styles/studio.css";
 
 const steps = [
@@ -63,8 +64,8 @@ export function DesignStudioShowcase({
           ))}
         </ol>
         <div className="studio-action" data-reveal="up" data-delay="240">
-          <details className="studio-coming-soon">
-            <summary className="studio-cta">
+          <div className="studio-coming-soon">
+            <StudioEntryLink href={`/${locale}/design-studio`} loadingLabel={copy.opening}>
               <span className="studio-cta-icon">
                 <Icon name="pencil" />
               </span>
@@ -75,9 +76,8 @@ export function DesignStudioShowcase({
               <span className="studio-cta-arrow">
                 <Icon name="arrow" className="directional" />
               </span>
-            </summary>
-            <p className="studio-editor-notice">{copy.editorNotice}</p>
-          </details>
+            </StudioEntryLink>
+          </div>
         </div>
       </div>
     </section>
