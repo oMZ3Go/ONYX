@@ -37,7 +37,12 @@ export function SiteHeader({ locale, messages: m }: { locale: Locale; messages: 
             {m.common.start}
             <Icon name="arrow" className="directional" />
           </a>
-          <MobileNavigation key={locale} nav={m.nav} start={m.common.start} />
+          <MobileNavigation
+            key={locale}
+            nav={m.nav}
+            start={m.common.start}
+            studioHref="#design-studio"
+          />
         </div>
       </div>
     </header>

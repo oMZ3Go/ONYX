@@ -1,0 +1,50 @@
+[
+  {
+    "source": "public/images/design-studio/hoodies/hoodie-black-front.png",
+    "output": "public/images/design-studio/web/hoodies/hoodie-black-front.webp",
+    "sha256": "8941eb1c20963453aeb4df94eade6be4a0da372231e4e2b06455e2b555fe5f3b",
+    "originalWidth": 1774,
+    "originalHeight": 887,
+    "width": 1600,
+    "height": 800,
+    "hasAlpha": true,
+    "originalBytes": 948949,
+    "webBytes": 45312
+  },
+  {
+    "source": "public/images/design-studio/hoodies/hoodie-black-back.png",
+    "output": "public/images/design-studio/web/hoodies/hoodie-black-back.webp",
+    "sha256": "348204391d2cd0183e7c6a2d412a837b653b2c73e70b5974c05e1dd54d687e5b",
+    "originalWidth": 1774,
+    "originalHeight": 887,
+    "width": 1600,
+    "height": 800,
+    "hasAlpha": true,
+    "originalBytes": 952658,
+    "webBytes": 42036
+  },
+  {
+    "source": "public/images/design-studio/backgrounds/canvas-dark.png",
+    "output": "public/images/design-studio/web/backgrounds/canvas-dark.webp",
+    "sha256": "3a3fba78e4a7ba757b57fa4a59d589630f2c3feb1a69ffd28238c2a8254ba227",
+    "originalWidth": 1536,
+    "originalHeight": 1024,
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "originalBytes": 2233489,
+    "webBytes": 171588
+  },
+  {
+    "source": "public/images/design-studio/backgrounds/canvas-light.png",
+    "output": "public/images/design-studio/web/backgrounds/canvas-light.webp",
+    "sha256": "92bfef8c712336fb118897ee8fe262990e2b6bb2afb29cd05bcf05ba3de59e01",
+    "originalWidth": 1536,
+    "originalHeight": 1024,
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": false,
+    "originalBytes": 2061317,
+    "webBytes": 103534
+  }
+]

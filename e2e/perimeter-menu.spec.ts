@@ -246,6 +246,7 @@ for (const locale of ["en", "ar"]) {
     await expect(menu.locator("a")).toHaveCount(7);
     await menu.locator("a").last().click();
     await expect(menu).not.toBeVisible();
-    await expect(page).toHaveURL(/#design-studio$/);
+    await expect(page).toHaveURL(new RegExp(`/${other}#design-studio$`));
+    await expect(page.locator("#studio-title")).toBeInViewport();
   });
 }

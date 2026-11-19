@@ -140,6 +140,9 @@ for (const locale of ["en", "ar"] as const) {
     await expect
       .poll(() => ambient.evaluate((el) => el.getAnimations()[0]?.playState))
       .toBe("running");
+    // Finish positioning the control before native anchor scrolling starts.
+    // Rapid focus traversal can otherwise leave a competing smooth scroll to the footer.
+    await top.scrollIntoViewIfNeeded();
     await top.focus();
     await page.keyboard.press("Enter");
     await expect(page).toHaveURL(/#home$/);

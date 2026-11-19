@@ -7,7 +7,8 @@ permissions:
 jobs:
   landing:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # The 165-case production browser suite has taken 27.5 minutes locally.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

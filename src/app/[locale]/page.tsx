@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ViewTransition } from "react";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/i18n/config";
@@ -32,22 +33,24 @@ export default async function LandingPage({ params }: Props) {
   setRequestLocale(locale);
   const [m, featured] = await Promise.all([getDictionary(locale), catalog.getFeatured()]);
   return (
-    <>
-      <SiteHeader locale={locale} messages={m} />
-      <main id="main-content" tabIndex={-1}>
-        <HeroSection locale={locale} messages={m} />
-        <FeaturedProducts locale={locale} messages={m} catalog={featured} />
-        <CategoryGrid
-          copy={m.categories}
-          locale={locale}
-          categories={getLandingCategories(m.categories)}
-        />
-        <HowItWorks locale={locale} copy={m.process} />
-        <OfferBanner copy={m.offer} start={m.common.start} locale={locale} />
-        <BrandStory copy={m.story} />
-        <DesignStudioShowcase copy={m.studio} locale={locale} />
-      </main>
-      <SiteFooter messages={m} locale={locale} />
-    </>
+    <ViewTransition exit={{ "studio-open": "onyx-studio-exit", default: "none" }} default="none">
+      <div>
+        <SiteHeader locale={locale} messages={m} />
+        <main id="main-content" tabIndex={-1}>
+          <HeroSection locale={locale} messages={m} />
+          <FeaturedProducts locale={locale} messages={m} catalog={featured} />
+          <CategoryGrid
+            copy={m.categories}
+            locale={locale}
+            categories={getLandingCategories(m.categories)}
+          />
+          <HowItWorks locale={locale} copy={m.process} />
+          <OfferBanner copy={m.offer} start={m.common.start} locale={locale} />
+          <BrandStory copy={m.story} />
+          <DesignStudioShowcase copy={m.studio} locale={locale} />
+        </main>
+        <SiteFooter messages={m} locale={locale} />
+      </div>
+    </ViewTransition>
   );
 }

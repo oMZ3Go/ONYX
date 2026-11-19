@@ -226,3 +226,51 @@ html[data-motion-paused="true"] *,
 html[data-motion-paused="true"] *::after {
   animation-play-state: paused !important;
 }
+
+/* Native navigation snapshots exist only during an actual route transition. */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-old(.onyx-studio-exit) {
+  animation: onyx-route-exit 180ms var(--onyx-ease) both;
+}
+::view-transition-new(.onyx-studio-enter) {
+  animation: onyx-route-enter 360ms var(--onyx-ease) both;
+}
+@keyframes onyx-route-exit {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes onyx-route-enter {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 8% 0);
+  }
+}
+.studio-navigation-status {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 2px;
+  text-align: center;
+  font-size: 11px;
+  color: inherit;
+}
+.studio-navigation-status:not(:empty) {
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  padding: 10px;
+  border-radius: inherit;
+  background: inherit;
+  font-size: 14px;
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation: none !important;
+  }
+}

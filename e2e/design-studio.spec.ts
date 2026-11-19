@@ -158,8 +158,8 @@ for (const [locale, copy] of [
     await expect(scene.locator(".studio-hoodie")).toHaveAttribute("src", /hoodie-back-navy/);
     await page.locator(".studio-cta").focus();
     await page.keyboard.press("Enter");
-    await expect(page.locator(".studio-editor-notice")).toHaveText(copy.editorNotice);
-    await expect(page).toHaveURL(/#design-studio$/);
+    await expect(page).toHaveURL(new RegExp(`/${locale}/design-studio$`));
+    await expect(page.locator(".ds-canvas")).toBeVisible();
   });
 
   test(`${locale}: studio cursor loops through measured targets and resumes after keyboard selection`, async ({

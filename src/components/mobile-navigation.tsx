@@ -3,7 +3,15 @@ import { useEffect, useRef, type CSSProperties } from "react";
 import type { Messages } from "@/i18n/messages";
 import { Icon } from "./icon";
 import { navigation, navigationIcons } from "./navigation";
-export function MobileNavigation({ nav, start }: { nav: Messages["nav"]; start: string }) {
+export function MobileNavigation({
+  nav,
+  start,
+  studioHref,
+}: {
+  nav: Messages["nav"];
+  start: string;
+  studioHref: string;
+}) {
   const ref = useRef<HTMLDetailsElement>(null);
   useEffect(() => {
     const menu = ref.current!;
@@ -175,7 +183,7 @@ export function MobileNavigation({ nav, start }: { nav: Messages["nav"]; start: 
               <Icon name="arrow" className="directional" />
             </a>
           ))}
-          <a className="button button-primary design-cta" href="#design-studio">
+          <a className="button button-primary design-cta" href={studioHref}>
             {start}
             <Icon name="arrow" className="directional" />
           </a>

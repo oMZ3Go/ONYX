@@ -8,6 +8,8 @@ Current local scope, 2026-10-19: [Phase 01 implementation and localization conve
 
 ## Authority and status
 
+2026-11-18 Phase 03.1: [Approved Design Studio workspace, catalog contracts and validation](phase-03/implementation.md), [dependency security review and unresolved Picomatch risk](phase-03/security-review.md), and [Phase 03.2 functional editor handoff](phase-03/phase-03.2-handoff.md). The owner has approved the Phase 03.1 Git release workflow; deployment remains separately gated. Phase 02 is merged and complete. The owner's current brief defines Phase 03 as the actual 2D editor; older roadmap phase numbering is historical.
+
 2026-10-29 local Phase 02: [Design Studio Showcase implementation and verification](phase-02/implementation.md), with [approved-source hashes and optimized asset inventory](phase-02/asset-inventory.json). This is an interactive preview; the complete apparel editor remains future work.
 
 The [master request](phase-00/master-request.md) supersedes conflicting statements in [the original brief](../00_PROJECT_BRIEF_AR.md) and [the original kickoff](../01_CODEX_START_PROMPT.md). Both originals and the [brand reference](brand/onyx-brand-reference.jpeg) are preserved unchanged. Despite its filename, the original Arabic brief currently contains English prose.
