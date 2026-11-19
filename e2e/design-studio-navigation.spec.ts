@@ -13,6 +13,8 @@ async function settle(page: Page) {
       page.evaluate(() => document.getAnimations().filter((a) => a.playState === "running").length),
     )
     .toBe(0);
+  // Entrance layout can select a larger responsive source after the first decode.
+  await studioImagesReady(page);
 }
 async function capture(page: Page, name: string) {
   await settle(page);
