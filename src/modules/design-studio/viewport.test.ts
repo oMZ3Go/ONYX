@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { clampZoom, fitViewport } from "./viewport";
+import { artworkViewport, clampZoom, fitViewport } from "./viewport";
 
 const wide = { src: "/front.webp", originalSrc: "/front.png", width: 1600, height: 800 };
 describe("preview viewport geometry", () => {
@@ -31,6 +31,25 @@ describe("preview viewport geometry", () => {
     const fit = fitViewport(780, 520, images);
     const imageHeight = fit.height - 30;
     expect(fit.width).toBeCloseTo(imageHeight * (2 + 0.5) + 20);
+    expect(fit.mockups[1]!.x).toBeCloseTo(imageHeight * 2 + 20);
+  });
+  it("registers each unclipped canvas to its own image while keeping its allocation viewport-sized", () => {
+    const viewport = { width: 390, height: 760 };
+    const fit = fitViewport(viewport.width, viewport.height, [wide, wide], {
+      stacked: true,
+      captions: false,
+    });
+    for (const zoom of [25, 100, 300]) {
+      const camera = { x: 28, y: -41, zoom };
+      const front = artworkViewport(viewport, fit, 0, camera);
+      const back = artworkViewport(viewport, fit, 1, camera);
+      expect(front.width).toBe(viewport.width);
+      expect(back.height).toBe(viewport.height);
+      expect(back.originX).toBe(front.originX);
+      expect(back.originY - front.originY).toBeCloseTo(((fit.imageHeight + 20) * zoom) / 100);
+      expect(front.originX + (fit.width * zoom) / 200).toBeCloseTo(viewport.width / 2 + camera.x);
+      expect(front.originY + (fit.height * zoom) / 200).toBeCloseTo(viewport.height / 2 + camera.y);
+    }
   });
   it("clamps zoom to the independent inspection range", () => {
     const roomy = fitViewport(1100, 220, [wide]);

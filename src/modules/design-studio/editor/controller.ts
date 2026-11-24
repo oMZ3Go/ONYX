@@ -115,7 +115,7 @@ export class EditorController {
   lockSelection() {
     const side = this.state.activeSide,
       doc = this.state.project.sides[side],
-      ids = this.state.selection[side];
+      ids = this.state.selection[side].filter((id) => doc.objectsById[id]?.visible);
     if (!ids.length) return;
     const locked = !ids.every((id) => doc.objectsById[id]?.locked);
     const objects = { ...doc.objectsById };

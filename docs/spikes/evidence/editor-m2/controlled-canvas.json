@@ -1,0 +1,52 @@
+{
+  "scope": "Isolated Chromium Canvas 2D comparison of the source PNG on a blank page.",
+  "reproduce": "From the repository root, run node docs/spikes/evidence/editor-m2/compare-canvas.mjs",
+  "chromium": "156.0.8078.4",
+  "dpr": 2,
+  "source": {
+    "path": "public/images/landing/design-studio/prints/print-crown.png",
+    "sha256": "f1b1fa26e3d72d36652db5d4cf4142a048080f6bafdd6eac4774f9d334445010",
+    "width": 364,
+    "height": 368
+  },
+  "interpolation": {
+    "method": "Draw the same original directly to a 91 × 92 transparent canvas. Compare lossless canvas PNGs from low and high image smoothing.",
+    "width": 91,
+    "height": 92,
+    "totalPixels": 8372,
+    "rgbaChanged": 0,
+    "alphaChanged": 0,
+    "alphaDelta16OrMore": 0,
+    "meanAbsoluteAlphaDelta": 0,
+    "first": {
+      "path": ".cache/phase-03/editor-quality/controlled-canvas/smoothing-low.png",
+      "sha256": "001be3ba0cd782dd244acfeaa84cd6f596bbdfd99bcfb00f40fa60bdda64f20b"
+    },
+    "second": {
+      "path": ".cache/phase-03/editor-quality/controlled-canvas/smoothing-high.png",
+      "sha256": "001be3ba0cd782dd244acfeaa84cd6f596bbdfd99bcfb00f40fa60bdda64f20b"
+    }
+  },
+  "cameraZoom": {
+    "method": "At DPR 2, transform a 91 × 92 CSS pixel canvas to 200%. Compare transparent compositor screenshots. The fixed backing is 182 × 184. The zoom-aware backing is 364 × 368. Both draw the original with high smoothing.",
+    "width": 364,
+    "height": 368,
+    "totalPixels": 133952,
+    "rgbaChanged": 33213,
+    "alphaChanged": 29692,
+    "alphaDelta16OrMore": 15974,
+    "meanAbsoluteAlphaDelta": 6.79,
+    "first": {
+      "path": ".cache/phase-03/editor-quality/controlled-canvas/zoom-fixed.png",
+      "sha256": "65e8f88655714dd562454cb173ca039c1e1b88c331c6b5c285c9d59c29c139f9"
+    },
+    "second": {
+      "path": ".cache/phase-03/editor-quality/controlled-canvas/zoom-zoom-aware.png",
+      "sha256": "bb70ef22947afbfcae9050b2bc2c4bc27b83f303863950e0a7547d3b71a1e342"
+    },
+    "changedAlphaPixelsVsOriginalPNG": {
+      "fixedBacking": 29692,
+      "zoomAwareBacking": 0
+    }
+  }
+}

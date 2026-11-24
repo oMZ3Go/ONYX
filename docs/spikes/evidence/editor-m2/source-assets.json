@@ -1,0 +1,80 @@
+{
+  "method": {
+    "sharpVersion": "0.35.5",
+    "vipsVersion": "8.18.7",
+    "source": "URLs resolve under public/. SHA-256 and byte length use the encoded file bytes.",
+    "alpha": "Decode the original using Sharp extractChannel('alpha').raw() at native size. Count 8-bit samples at 0, 1–254 and 255.",
+    "coordinates": "Nonzero alpha bounds are [left, top, rightExclusive, bottomExclusive] in source pixels. Corner values start at top left and proceed clockwise.",
+    "garmentPreviewSources": "WebP inputs to the responsive Next Image preview. The browser can receive a different optimized candidate for its viewport and DPR."
+  },
+  "originals": [
+    {
+      "path": "/images/landing/design-studio/prints/print-crown.png",
+      "format": "png",
+      "width": 364,
+      "height": 368,
+      "byteLength": 73161,
+      "sha256": "f1b1fa26e3d72d36652db5d4cf4142a048080f6bafdd6eac4774f9d334445010",
+      "hasAlpha": true,
+      "alpha": {
+        "transparent": 103157,
+        "partial": 30795,
+        "opaque": 0,
+        "nonzeroBounds": [32, 32, 332, 336],
+        "cornerValues": [0, 0, 0, 0]
+      }
+    },
+    {
+      "path": "/images/design-studio/hoodies/hoodie-black-front.png",
+      "format": "png",
+      "width": 1774,
+      "height": 887,
+      "byteLength": 948949,
+      "sha256": "8941eb1c20963453aeb4df94eade6be4a0da372231e4e2b06455e2b555fe5f3b",
+      "hasAlpha": true,
+      "alpha": {
+        "transparent": 864186,
+        "partial": 708547,
+        "opaque": 805,
+        "nonzeroBounds": [0, 0, 1768, 887],
+        "cornerValues": [0, 0, 0, 0]
+      }
+    },
+    {
+      "path": "/images/design-studio/hoodies/hoodie-black-back.png",
+      "format": "png",
+      "width": 1774,
+      "height": 887,
+      "byteLength": 952658,
+      "sha256": "348204391d2cd0183e7c6a2d412a837b653b2c73e70b5974c05e1dd54d687e5b",
+      "hasAlpha": true,
+      "alpha": {
+        "transparent": 879790,
+        "partial": 692794,
+        "opaque": 954,
+        "nonzeroBounds": [29, 5, 1766, 887],
+        "cornerValues": [0, 0, 0, 0]
+      }
+    }
+  ],
+  "garmentPreviewSources": [
+    {
+      "path": "/images/design-studio/web/hoodies/hoodie-black-front.webp",
+      "format": "webp",
+      "width": 1600,
+      "height": 800,
+      "byteLength": 45312,
+      "sha256": "549e48deabe0871fa7a0c04e5ad873ce5ba6fc182c1b8cd519d3a5e5dfdc860f",
+      "hasAlpha": true
+    },
+    {
+      "path": "/images/design-studio/web/hoodies/hoodie-black-back.webp",
+      "format": "webp",
+      "width": 1600,
+      "height": 800,
+      "byteLength": 42036,
+      "sha256": "28f8ae5d7c59b8507ec898940e0df286f5d311e58934cb6897e2c0b7d39a4cf9",
+      "hasAlpha": true
+    }
+  ]
+}

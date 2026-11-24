@@ -259,22 +259,41 @@ for (const locale of ["en", "ar"] as const) {
     await page.goto(`/${locale}/design-studio`);
     await add(page, locale);
     const original = await transform(hit(page));
+    const surface = page.locator(".ds-garments .ds-editor-surface");
     await move(page, hit(page), 20, 10, false);
+    // Hold events created during this gesture, then deliver them after the
+    // browser has reused its mouse pointer ID for the next drag.
+    const delayed = await surface.evaluateHandle(() =>
+      ["pointermove", "pointerup", "pointercancel", "lostpointercapture"].map(
+        (type) => new PointerEvent(type, { bubbles: true, pointerId: 1, clientX: 0, clientY: 0 }),
+      ),
+    );
     await page.keyboard.press("Escape");
     await page.mouse.up();
     expect(await transform(hit(page))).toEqual(original);
     await expect(page.locator(".ds-page")).toHaveAttribute("data-undo-count", "1");
     await move(page, hit(page), 20, 10, false);
-    await page
-      .locator(".ds-garments .ds-editor-surface")
-      .dispatchEvent("pointercancel", { pointerId: 1 });
+    await surface.dispatchEvent("pointercancel", { pointerId: 1 });
     await page.mouse.up();
     expect(await transform(hit(page))).toEqual(original);
     await move(page, hit(page), 20, 10, false);
-    await page.locator(".ds-garments .ds-editor-surface").evaluate((el) => {
+    await surface.evaluate((el) => {
       if (el.hasPointerCapture(1)) el.releasePointerCapture(1);
     });
     await page.mouse.up();
+    expect(await transform(hit(page))).toEqual(original);
+    await move(page, hit(page), 20, 10, false);
+    await surface.evaluate((el, events) => {
+      for (const event of events) el.dispatchEvent(event);
+    }, delayed);
+    await delayed.dispose();
+    await surface.dispatchEvent("pointercancel", { pointerId: 99 });
+    await surface.dispatchEvent("lostpointercapture", { pointerId: 99 });
+    await expect(page.locator(".ds-page")).toHaveAttribute("data-undo-count", "1");
+    await page.mouse.up();
+    await expect(page.locator(".ds-page")).toHaveAttribute("data-undo-count", "2");
+    expect((await transform(hit(page))).centerX).toBeGreaterThan(original.centerX);
+    await page.getByRole("button", { name: copy.workspace.undo, exact: true }).click();
     expect(await transform(hit(page))).toEqual(original);
     await page.getByRole("button", { name: copy.workspace.zoomIn, exact: true }).click();
     await page.getByRole("button", { name: copy.hand, exact: true }).click();

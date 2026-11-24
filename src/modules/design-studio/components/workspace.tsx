@@ -103,32 +103,29 @@ export function Workspace({
     if (geometry) onCamera(zoomAt(camera, value, { x: 0, y: 0 }, geometry));
   };
   const fit = () => onCamera(initialCamera);
-  const clipToggle = <button type="button" className="ds-clip-toggle" aria-label={copy.editor.clip} title={`${copy.editor.clip} · ${copy.editor.clipHint}`} aria-pressed={editor.state.clipGarment} onClick={() => editor.controller.setClip(!editor.state.clipGarment)}><StudioIcon name="clip" /><span>{copy.editor.clip}</span></button>;
+  const clipToggle = (
+    <button
+      type="button"
+      className="ds-clip-toggle"
+      aria-label={copy.editor.clip}
+      title={`${copy.editor.clip} · ${copy.editor.clipHint}`}
+      aria-pressed={editor.state.clipGarment}
+      onClick={() => editor.controller.setClip(!editor.state.clipGarment)}
+    >
+      <StudioIcon name="clip" />
+      <span>{copy.editor.clip}</span>
+    </button>
+  );
   const activeIndex = sides.indexOf(editor.state.activeSide);
   const source = editor.state.project.sides[editor.state.activeSide].space;
-  const imageWidth = fitted
-    ? (fitted.imageHeight * variant.mockups[editor.state.activeSide].width) /
-      variant.mockups[editor.state.activeSide].height
-    : 0;
   const toolbarGeometry: SurfaceGeometry | null =
     fitted && viewportSize && activeIndex >= 0
       ? {
           viewport: { ...viewportSize, left: 0, top: 0 },
           scene: { width: fitted.width, height: fitted.height },
           mockup: {
-            x: stacked
-              ? (fitted.width - imageWidth) / 2
-              : sides
-                  .slice(0, activeIndex)
-                  .reduce(
-                    (sum, side) =>
-                      sum +
-                      (fitted.imageHeight * variant.mockups[side].width) /
-                        variant.mockups[side].height +
-                      20,
-                    0,
-                  ),
-            y: stacked ? activeIndex * (fitted.imageHeight + (captions ? 30 : 0) + 20) : 0,
+            x: fitted.mockups[activeIndex]!.x,
+            y: fitted.mockups[activeIndex]!.y,
             cssPixelsPerSourcePixel: fitted.imageHeight / source.height,
           },
           documentToMockup: identity,
@@ -218,7 +215,7 @@ export function Workspace({
               viewport={viewportSize}
               captions={Boolean(captions)}
               focus={focus}
-              zoom={zoom}
+              camera={camera}
               locale={locale}
               copy={copy}
             />

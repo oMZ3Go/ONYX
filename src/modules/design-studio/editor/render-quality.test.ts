@@ -29,6 +29,6 @@ it("keeps contextual controls within narrow and wide viewports", () => {
       expect(p.left + p.width).toBeLessThanOrEqual(width - 8);
       expect(p.top).toBeGreaterThanOrEqual(8);
       expect(p.top + p.height).toBeLessThanOrEqual(592);
-      expect(p.target).toBeGreaterThanOrEqual(width < 700 ? 40 : 34);
+      expect(p.target).toBeGreaterThanOrEqual(width < 700 ? 44 : 34);
     }
 });

@@ -17,7 +17,7 @@ export function toolbarPosition(
   viewport: { width: number; height: number },
   zoom: number,
 ) {
-  const target = viewport.width < 700 ? 40 : 34,
+  const target = viewport.width < 700 ? 44 : 34,
     gap = 4,
     padding = 14;
   const columns = Math.max(

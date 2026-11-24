@@ -41,6 +41,23 @@ async function bitmap(page: Page) {
     };
   });
 }
+async function cropWhitePixels(
+  page: Page,
+  clip: { x: number; y: number; width: number; height: number },
+  name: string,
+) {
+  const screenshot = await page.screenshot({
+    clip,
+    scale: "css",
+    style: ".ds-selection-box,.ds-object-hit,.ds-context-toolbar{visibility:hidden!important}",
+  });
+  await test.info().attach(name, { body: screenshot, contentType: "image/png" });
+  const { data, info } = await sharp(screenshot).raw().toBuffer({ resolveWithObject: true });
+  let white = 0;
+  for (let i = 0; i < data.length; i += info.channels)
+    if (data[i]! > 180 && data[i + 1]! > 180 && data[i + 2]! > 180) white++;
+  return white;
+}
 const hash = (png: string) =>
   createHash("sha256")
     .update(Buffer.from(png.split(",")[1]!, "base64"))
@@ -64,6 +81,8 @@ for (const dpr of [1, 2])
         await expect.poll(async () => (await bitmap(page)).quality).toBe("high");
         await numeric(page, copy.editor.width, 300);
         const large = await bitmap(page);
+        const hit = page.locator(".ds-garments .ds-object-hit");
+        const beforeResize = (await hit.boundingBox())!;
         const handle = (await page.locator('[data-handle="se"]').boundingBox())!;
         await page.mouse.move(handle.x + handle.width / 2, handle.y + handle.height / 2);
         await page.mouse.down();
@@ -71,13 +90,19 @@ for (const dpr of [1, 2])
           steps: 8,
         });
         const during = await bitmap(page);
+        const live = (await hit.boundingBox())!;
+        expect(live.width).toBeLessThan(beforeResize.width - 5);
+        expect(live.width / live.height).toBeCloseTo(beforeResize.width / beforeResize.height, 2);
+        expect(hash(during.png)).not.toBe(hash(large.png));
         await page.mouse.up();
         const released = await bitmap(page);
+        expect((await hit.boundingBox())!.width).toBeCloseTo(live.width, 2);
         expect(hash(released.png)).toBe(hash(during.png));
         await numeric(page, copy.editor.width, 100);
         const small = await bitmap(page);
+        expect(hash(small.png)).not.toBe(hash(released.png));
         await page.getByRole("button", { name: copy.workspace.undo, exact: true }).click();
-        await settled(page);
+        expect(hash((await bitmap(page)).png)).toBe(hash(released.png));
         await page.getByRole("button", { name: copy.workspace.redo, exact: true }).click();
         expect(hash((await bitmap(page)).png)).toBe(hash(small.png));
         await numeric(page, copy.editor.width, 250);
@@ -187,6 +212,40 @@ for (const dpr of [1, 2])
         await page.getByRole("button", { name: copy.workspace.undo, exact: true }).click();
         await expect(clip).toHaveAttribute("aria-pressed", "true");
         await page.getByRole("button", { name: copy.workspace.redo, exact: true }).click();
+        await numeric(page, copy.editor.centerX, 887);
+        await numeric(page, copy.editor.centerY, 0);
+        // This crop lies entirely above the PNG rectangle. It exposes a second,
+        // accidental crop if disabling the silhouette keeps a garment-sized canvas.
+        await clip.click();
+        await page.getByRole("button", { name: copy.workspace.zoomIn, exact: true }).click();
+        const viewport = page.locator(".ds-viewport");
+        const view = (await viewport.boundingBox())!;
+        const panDistance = Math.round(view.height / 5);
+        await page.getByRole("button", { name: copy.hand, exact: true }).click();
+        await page.mouse.move(view.x + 15, view.y + view.height / 2);
+        await page.mouse.down();
+        await page.mouse.move(view.x + 35, view.y + view.height / 2 + panDistance);
+        await page.mouse.up();
+        await expect
+          .poll(async () => Number(await viewport.getAttribute("data-pan-y")))
+          .toBeCloseTo(panDistance, 0);
+        await settled(page);
+        const unmaskedCanvas = (await image.locator("canvas").boundingBox())!;
+        expect(unmaskedCanvas.x).toBeCloseTo(view.x, 0);
+        expect(unmaskedCanvas.y).toBeCloseTo(view.y, 0);
+        expect(unmaskedCanvas.width).toBeCloseTo(view.width, 0);
+        await page.getByRole("button", { name: copy.hand, exact: true }).click();
+        const garment = (await image.boundingBox())!;
+        const hit = (await image.locator(".ds-object-hit").boundingBox())!;
+        const top = Math.ceil(Math.max(view.y + 1, hit.y));
+        const bottom = Math.floor(Math.min(view.y + view.height, garment.y - 1));
+        expect(bottom - top).toBeGreaterThan(6);
+        const crop = { x: hit.x, y: top, width: hit.width, height: bottom - top };
+        const exposed = await cropWhitePixels(page, crop, "outside-garment-clip-off");
+        await clip.click();
+        expect(
+          exposed - (await cropWhitePixels(page, crop, "outside-garment-clip-on")),
+        ).toBeGreaterThan(20);
         await page.locator(".ds-view-control button").nth(2).click();
         await settled(page);
         for (const side of ["front", "back"])
@@ -202,6 +261,29 @@ for (const dpr of [1, 2])
       });
     }
   });
+
+test("Both view keeps unclipped artwork visible over the neighboring mockup", async ({ page }) => {
+  const copy = copies.en;
+  await page.goto("/en/design-studio");
+  await page.locator(".ds-view-control button").nth(0).click();
+  await page.locator(".ds-artwork").first().click();
+  await page.getByRole("button", { name: copy.properties.add, exact: true }).click();
+  await page.locator(".ds-view-control button").nth(2).click();
+  await settled(page);
+  const sides = page.locator(".ds-garments .ds-garment-image");
+  const front = (await sides.nth(0).boundingBox())!;
+  const back = (await sides.nth(1).boundingBox())!;
+  const backCenterInFrontSpace = ((back.x + back.width / 2 - front.x) * 1774) / front.width;
+  await numeric(page, copy.editor.width, 450);
+  await numeric(page, copy.editor.centerX, Math.round(backCenterInFrontSpace));
+  const crop = (await sides.nth(0).locator(".ds-object-hit").boundingBox())!;
+  expect(crop.x).toBeGreaterThan(back.x);
+  const clipped = await cropWhitePixels(page, crop, "both-sides-clip-on");
+  await page.getByRole("button", { name: copy.editor.clip, exact: true }).click();
+  const shown = await cropWhitePixels(page, crop, "both-sides-clip-off");
+  expect(shown - clipped).toBeGreaterThan(20);
+  await expect(sides.nth(1).locator(".ds-object-hit")).toHaveCount(0);
+});
 
 for (const locale of ["en", "ar"] as const)
   test(`${locale}: contextual icons use document commands and remain on screen`, async ({

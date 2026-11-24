@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-24",
+  "checkpoint": "f5a1f373cac0262d9dabc8eccd2ca9532848f47a",
+  "branch": "codex/temp-editor-m2-20261124",
+  "chromium": "156.0.8078.4",
+  "quality": {
+    "command": "npm.cmd run check",
+    "format": "passed",
+    "eslint": "passed (zero warnings)",
+    "typescript": "passed",
+    "unitTests": {
+      "passed": 124,
+      "failed": 0,
+      "skipped": 0,
+      "files": 14
+    },
+    "productionBuild": "passed",
+    "next": "16.4.6",
+    "originalManifest": "verified using node scripts/artwork-manifest.mjs --check"
+  },
+  "focusedProduction": {
+    "startedAt": "2026-11-24T15:15:44.882Z",
+    "durationSeconds": 38.98,
+    "total": 20,
+    "passed": 20,
+    "failed": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "retryAttempts": 0,
+    "globalErrors": 0
+  },
+  "fullProductionBeforeAccessibleNamesFix": {
+    "startedAt": "2026-11-24T15:17:11.959Z",
+    "durationSeconds": 570.19,
+    "total": 186,
+    "passed": 184,
+    "failed": 2,
+    "flaky": 0,
+    "skipped": 0,
+    "retryAttempts": 0,
+    "globalErrors": 0
+  },
+  "viewportMatrixAfterAccessibleNamesFixDevelopment": {
+    "startedAt": "2026-11-24T15:24:25.736Z",
+    "durationSeconds": 215.06,
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "retryAttempts": 0,
+    "globalErrors": 0
+  },
+  "fullProductionAfterAccessibleNamesFix": {
+    "startedAt": "2026-11-24T15:27:29.890Z",
+    "durationSeconds": 613.33,
+    "total": 186,
+    "passed": 186,
+    "failed": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "retryAttempts": 0,
+    "globalErrors": 0
+  }
+}

@@ -144,7 +144,12 @@ export function Inspector({
                   </div>
                 </dl>
                 <p className="ds-subtle">{copy.editor.rightsNote}</p>
-                <SideTarget editor={editor} copy={copy} locale={locale} />
+                <SideTarget
+                  editor={editor}
+                  copy={copy}
+                  locale={locale}
+                  label={copy.editor.placementSide}
+                />
                 <button
                   type="button"
                   className="ds-disabled-action"

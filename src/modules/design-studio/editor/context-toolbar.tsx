@@ -9,6 +9,7 @@ export function ContextToolbar({
   editor,
   geometry,
   copy,
+  locale,
 }: LocalizedStudioProps & { editor: Editor; geometry: SurfaceGeometry }) {
   const { state, controller } = editor,
     side = state.activeSide,
@@ -86,7 +87,7 @@ export function ContextToolbar({
       data-editor-toolbar
       role="toolbar"
       aria-label={copy.editor.contextActions}
-      dir="ltr"
+      dir={locale === "ar" ? "rtl" : "ltr"}
       style={{
         left: position.left,
         top: position.top,

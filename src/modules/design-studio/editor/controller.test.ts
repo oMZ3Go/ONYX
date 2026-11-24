@@ -58,6 +58,18 @@ describe("canonical artwork commands", () => {
     c.history("undo");
     expect(object(c).locked).toBe(false);
   });
+  it("locks only objects represented in the visible selection toolbar", () => {
+    const c = setup();
+    c.add("back", "crown");
+    c.duplicate();
+    c.flag("object-1", "visible");
+    c.select("back", ["object-1"], true);
+    c.lockSelection();
+    expect(object(c, "back", "object-2").locked).toBe(true);
+    expect(object(c).locked).toBe(false);
+    c.lockSelection();
+    expect(object(c, "back", "object-2").locked).toBe(false);
+  });
   it("single-step layer movement preserves selected relative order", () => {
     const c = setup();
     c.add("back", "crown");

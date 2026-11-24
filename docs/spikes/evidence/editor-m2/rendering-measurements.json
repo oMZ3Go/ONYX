@@ -1,0 +1,258 @@
+[
+  {
+    "dpr": 1,
+    "locale": "ar",
+    "requests": [
+      "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Flanding%2Fweb%2Fdesign-studio%2Fprints%2Fprint-crown.webp&w=256&q=75",
+      "http://127.0.0.1:3000/images/landing/design-studio/prints/print-crown.png"
+    ],
+    "frames": {
+      "large": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "e3229f7656d01aaf68cfa1b5b32840b04a2bb4b7fec9114f0b80766f27d076b6"
+      },
+      "during": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "5526ce503c06cf4939d24c340c84dccaa926b628fc96b376610fb76881425d7f"
+      },
+      "released": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "5526ce503c06cf4939d24c340c84dccaa926b628fc96b376610fb76881425d7f"
+      },
+      "small": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "e8f03935871c6b6f0a2b83ac810cfd28c2a3b75ff985f897b38fcfe39c96cf22"
+      },
+      "stable": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "0244a33aa47d118e0c08297cd34e3bcf20afc0de98f5114d6d0ccd125b38d257"
+      },
+      "zoomed": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 1236.59375,
+        "cssHeight": 618.28125,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "a5f75ed6a85c0d3362cb8eebbb57bfd9af90fd01e18639a1fbc9905612d25abd"
+      }
+    }
+  },
+  {
+    "dpr": 1,
+    "locale": "en",
+    "requests": [
+      "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Flanding%2Fweb%2Fdesign-studio%2Fprints%2Fprint-crown.webp&w=256&q=75",
+      "http://127.0.0.1:3000/images/landing/design-studio/prints/print-crown.png"
+    ],
+    "frames": {
+      "large": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "e3229f7656d01aaf68cfa1b5b32840b04a2bb4b7fec9114f0b80766f27d076b6"
+      },
+      "during": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "5526ce503c06cf4939d24c340c84dccaa926b628fc96b376610fb76881425d7f"
+      },
+      "released": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "5526ce503c06cf4939d24c340c84dccaa926b628fc96b376610fb76881425d7f"
+      },
+      "small": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "e8f03935871c6b6f0a2b83ac810cfd28c2a3b75ff985f897b38fcfe39c96cf22"
+      },
+      "stable": {
+        "width": 618,
+        "height": 309,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "0244a33aa47d118e0c08297cd34e3bcf20afc0de98f5114d6d0ccd125b38d257"
+      },
+      "zoomed": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 1236.59375,
+        "cssHeight": 618.28125,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "a5f75ed6a85c0d3362cb8eebbb57bfd9af90fd01e18639a1fbc9905612d25abd"
+      }
+    }
+  },
+  {
+    "dpr": 2,
+    "locale": "ar",
+    "requests": [
+      "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Flanding%2Fweb%2Fdesign-studio%2Fprints%2Fprint-crown.webp&w=384&q=75",
+      "http://127.0.0.1:3000/images/landing/design-studio/prints/print-crown.png"
+    ],
+    "frames": {
+      "large": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "ce9d49a661bcc5460fea75522d23a94f54ac3b4852ba5e062e83e9f83d1dd68b"
+      },
+      "during": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "3fad31a43a5aea4efd66d4dde08fd17470b2fcc58e56af9f0b7dab6ee1796c87"
+      },
+      "released": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "3fad31a43a5aea4efd66d4dde08fd17470b2fcc58e56af9f0b7dab6ee1796c87"
+      },
+      "small": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "ce93f87f837a0ad0a780bae1042c4e08da32fa0a3580391a482b374cb162d202"
+      },
+      "stable": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "a5f75ed6a85c0d3362cb8eebbb57bfd9af90fd01e18639a1fbc9905612d25abd"
+      },
+      "zoomed": {
+        "width": 2473,
+        "height": 1236,
+        "cssWidth": 1236.59375,
+        "cssHeight": 618.28125,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "588e3c7661554dce8e64451b6bbf0234baf326f2d5c5a06351dd479f3855d076"
+      }
+    }
+  },
+  {
+    "dpr": 2,
+    "locale": "en",
+    "requests": [
+      "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Flanding%2Fweb%2Fdesign-studio%2Fprints%2Fprint-crown.webp&w=384&q=75",
+      "http://127.0.0.1:3000/images/landing/design-studio/prints/print-crown.png"
+    ],
+    "frames": {
+      "large": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "ce9d49a661bcc5460fea75522d23a94f54ac3b4852ba5e062e83e9f83d1dd68b"
+      },
+      "during": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "3fad31a43a5aea4efd66d4dde08fd17470b2fcc58e56af9f0b7dab6ee1796c87"
+      },
+      "released": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "3fad31a43a5aea4efd66d4dde08fd17470b2fcc58e56af9f0b7dab6ee1796c87"
+      },
+      "small": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "ce93f87f837a0ad0a780bae1042c4e08da32fa0a3580391a482b374cb162d202"
+      },
+      "stable": {
+        "width": 1236,
+        "height": 618,
+        "cssWidth": 618.296875,
+        "cssHeight": 309.140625,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "a5f75ed6a85c0d3362cb8eebbb57bfd9af90fd01e18639a1fbc9905612d25abd"
+      },
+      "zoomed": {
+        "width": 2473,
+        "height": 1236,
+        "cssWidth": 1236.59375,
+        "cssHeight": 618.28125,
+        "smoothing": true,
+        "quality": "high",
+        "sha256": "588e3c7661554dce8e64451b6bbf0234baf326f2d5c5a06351dd479f3855d076"
+      }
+    }
+  }
+]

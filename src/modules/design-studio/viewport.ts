@@ -1,3 +1,4 @@
+import type { Camera } from "./camera";
 import type { ImageAsset } from "./types";
 
 /** Preview-only geometry. All dimensions are CSS pixels, never print measurements. */
@@ -49,7 +50,30 @@ export function fitViewport(
     ),
   );
   const minimum = 25;
-  return { width: fittedWidth, height: fittedHeight, imageHeight, minimum, maximum };
+  let rowX = 0;
+  const mockups = ratios.map((ratio, index) => {
+    const imageWidth = imageHeight * ratio;
+    const x = stacked ? (fittedWidth - imageWidth) / 2 : rowX;
+    rowX += imageWidth + gap;
+    return { x, y: stacked ? index * (imageHeight + caption + gap) : 0, width: imageWidth };
+  });
+  return { width: fittedWidth, height: fittedHeight, imageHeight, minimum, maximum, mockups };
+}
+
+/** Position a side's document origin on a viewport-sized, unmasked artwork canvas. */
+export function artworkViewport(
+  viewport: { width: number; height: number },
+  fit: ReturnType<typeof fitViewport>,
+  index: number,
+  camera: Camera,
+) {
+  const mockup = fit.mockups[index]!;
+  const scale = camera.zoom / 100;
+  return {
+    ...viewport,
+    originX: viewport.width / 2 + camera.x + (mockup.x - fit.width / 2) * scale,
+    originY: viewport.height / 2 + camera.y + (mockup.y - fit.height / 2) * scale,
+  };
 }
 export function clampZoom(value: number, minimum: number, maximum: number) {
   return Math.min(maximum, Math.max(minimum, value));

@@ -2,7 +2,8 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { GarmentImage } from "./garment-image";
 import { SurfaceBoundary } from "../editor/surface-boundary";
 import type { Editor } from "../editor/use-editor";
-import { fitViewport } from "../viewport";
+import type { Camera } from "../camera";
+import { artworkViewport, fitViewport } from "../viewport";
 import type { AvailableVariant, LocalizedStudioProps, ViewMode } from "../types";
 
 /** Local crossfade: both image groups stay in the canvas stacking context. */
@@ -14,7 +15,7 @@ export function GarmentScene({
   viewport,
   captions,
   focus,
-  zoom,
+  camera,
   locale,
   copy,
 }: LocalizedStudioProps & {
@@ -25,8 +26,9 @@ export function GarmentScene({
   viewport: { width: number; height: number } | null;
   captions: boolean;
   focus: boolean;
-  zoom: number;
+  camera: Camera;
 }) {
+  const { zoom } = camera;
   const [transition, setTransition] = useState<{ view: ViewMode; previous: ViewMode | null }>({
     view,
     previous: null,
@@ -83,11 +85,12 @@ export function GarmentScene({
         data-view={mode}
         data-stacked={stacked}
         data-captions={captions}
+        data-clipped={editor.state.clipGarment}
         aria-hidden={exiting || undefined}
         inert={exiting || undefined}
         style={exiting ? { width: fitted?.width } : undefined}
       >
-        {sides.map((side) => (
+        {sides.map((side, index) => (
           <figure
             key={side}
             className="ds-garment"
@@ -95,9 +98,7 @@ export function GarmentScene({
             style={
               stacked && fitted
                 ? {
-                    width:
-                      (fitted.imageHeight * variant.mockups[side].width) /
-                      variant.mockups[side].height,
+                    width: fitted.mockups[index]!.width,
                   }
                 : { flex: variant.mockups[side].width / variant.mockups[side].height }
             }
@@ -117,6 +118,9 @@ export function GarmentScene({
               />
               <SurfaceBoundary
                 maskSrc={variant.mockups[side].originalSrc}
+                viewportFrame={
+                  fitted && viewport ? artworkViewport(viewport, fitted, index, camera) : undefined
+                }
                 editor={editor}
                 side={side}
                 interactive={interactive && !exiting}

@@ -2,14 +2,19 @@ import { useState } from "react";
 import type { LocalizedStudioProps } from "../types";
 import type { Editor } from "./use-editor";
 
-export function SideTarget({ editor, copy }: { editor: Editor } & LocalizedStudioProps) {
+export function SideTarget({
+  editor,
+  copy,
+  label,
+}: { editor: Editor; label: string } & LocalizedStudioProps) {
   return (
     <fieldset className="ds-editor-side">
-      <legend>{copy.editor.target}</legend>
+      <legend>{label}</legend>
       {(["front", "back"] as const).map((side) => (
         <button
           type="button"
           key={side}
+          aria-label={`${copy.workspace[side]} · ${label}`}
           aria-pressed={editor.state.activeSide === side}
           onClick={() => {
             if (editor.state.view === "both") editor.controller.setSide(side);
@@ -154,7 +159,7 @@ export function LayerControls({ editor, copy, locale }: { editor: Editor } & Loc
     doc = state.project.sides[side];
   return (
     <div className="ds-editor-layers" aria-label={`${copy.layers.title}: ${copy.workspace[side]}`}>
-      <SideTarget editor={editor} copy={copy} locale={locale} />
+      <SideTarget editor={editor} copy={copy} locale={locale} label={copy.editor.layerSide} />
       {[...doc.layerOrder].reverse().map((id) => {
         const o = doc.objectsById[id]!;
         const name =

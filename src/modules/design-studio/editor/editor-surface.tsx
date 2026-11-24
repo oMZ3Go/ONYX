@@ -11,6 +11,7 @@ import { angle, bounds } from "./controller";
 import { resolveCatalogSource } from "./catalog-assets";
 import { decodeOriginal } from "./decoded-image";
 import { renderPixelRatio } from "./render-quality";
+import type { artworkViewport } from "../viewport";
 
 export interface SurfaceProps extends LocalizedStudioProps {
   editor: Editor;
@@ -18,6 +19,7 @@ export interface SurfaceProps extends LocalizedStudioProps {
   interactive: boolean;
   zoom: number;
   maskSrc: string;
+  viewportFrame?: ReturnType<typeof artworkViewport>;
 }
 function Artwork({
   object,
@@ -76,6 +78,7 @@ export default function EditorSurface({
   interactive,
   zoom,
   maskSrc,
+  viewportFrame,
   copy,
   locale,
 }: SurfaceProps) {
@@ -91,6 +94,7 @@ export default function EditorSurface({
   const gesture = useRef<{
     id: number;
     pointer: number;
+    startedAt: number;
     start: { x: number; y: number };
     before: Readonly<Record<string, Transform>>;
     box: ReturnType<typeof bounds>;
@@ -127,7 +131,13 @@ export default function EditorSurface({
     update();
     return () => query.removeEventListener("change", update);
   }, []);
-  const pixelRatio = renderPixelRatio(size.width, size.height, dpr, zoom);
+  const expanded = state.clipGarment ? undefined : viewportFrame;
+  const stageWidth = expanded?.width ?? size.width;
+  const stageHeight = expanded?.height ?? size.height;
+  // The expanded stage draws in screen CSS pixels so zooming out never allocates
+  // a canvas larger than the viewport. Its origin still follows this garment side.
+  const stageScale = expanded ? zoom / 100 : 1;
+  const pixelRatio = renderPixelRatio(stageWidth, stageHeight, dpr, expanded ? 100 : zoom);
   useLayoutEffect(() => {
     const current = layer.current;
     if (!current) return;
@@ -141,7 +151,7 @@ export default function EditorSurface({
     return () => {
       current.off("beforeDraw.onyx-quality", smooth);
     };
-  }, [pixelRatio, size.width, size.height]);
+  }, [pixelRatio, stageWidth, stageHeight, size.width]);
   const transforms = (object: DesignObject) =>
     side === state.activeSide ? (state.transient[object.id] ?? object.transform) : object.transform;
   const selected = state.selection[side]
@@ -219,11 +229,15 @@ export default function EditorSurface({
     if (!controller.begin()) return;
     event.preventDefault();
     host.current!.focus({ preventScroll: true });
+    cancelAnimationFrame(frame.current);
+    frame.current = 0;
+    sample.current = null;
     const before = controller.getGesture()!.before,
       rect = host.current!.getBoundingClientRect();
     gesture.current = {
       id: controller.getGesture()!.id,
       pointer: event.pointerId,
+      startedAt: event.timeStamp,
       start: clientToPreview({ x: event.clientX, y: event.clientY }, rect, doc.space),
       before,
       box: bounds(Object.values(before)),
@@ -232,14 +246,22 @@ export default function EditorSurface({
     };
     host.current!.setPointerCapture(event.pointerId);
   };
-  const cancel = () => {
-    const id = gesture.current?.id;
-    if (gesture.current) suppressClick.current = true;
+  const pointerGesture = (event: PointerEvent) => {
+    const active = gesture.current;
+    // A mouse or pen can reuse its pointer ID after cancellation.
+    return active?.pointer === event.pointerId && event.timeStamp >= active.startedAt
+      ? active
+      : null;
+  };
+  const cancel = (event: PointerEvent) => {
+    const active = pointerGesture(event);
+    if (!active) return;
+    suppressClick.current = true;
     gesture.current = null;
     sample.current = null;
     cancelAnimationFrame(frame.current);
     frame.current = 0;
-    if (id === controller.getGesture()?.id) controller.cancel();
+    if (active.id === controller.getGesture()?.id) controller.cancel();
   };
   return (
     <div
@@ -264,24 +286,28 @@ export default function EditorSurface({
         if (event.target === event.currentTarget && interactive) controller.select(side, []);
       }}
       onPointerMove={(event) => {
-        if (gesture.current?.pointer !== event.pointerId) return;
+        if (!pointerGesture(event)) return;
         sample.current = { x: event.clientX, y: event.clientY };
         if (!frame.current) frame.current = requestAnimationFrame(flush);
       }}
       onPointerUp={(event) => {
-        if (gesture.current?.pointer !== event.pointerId) return;
+        const active = pointerGesture(event);
+        if (!active) return;
         sample.current = { x: event.clientX, y: event.clientY };
         flush();
         suppressClick.current = true;
-        const id = gesture.current.id;
         gesture.current = null;
-        controller.finish(id);
+        controller.finish(active.id);
         if (host.current?.hasPointerCapture(event.pointerId))
           host.current.releasePointerCapture(event.pointerId);
       }}
       onPointerCancel={cancel}
-      onLostPointerCapture={() => {
-        if (gesture.current) cancel();
+      onLostPointerCapture={(event) => {
+        if (
+          event.target === event.currentTarget &&
+          !event.currentTarget.hasPointerCapture(event.pointerId)
+        )
+          cancel(event);
       }}
     >
       <div
@@ -296,15 +322,24 @@ export default function EditorSurface({
                 maskSize: "100% 100%",
                 maskRepeat: "no-repeat",
               }
-            : undefined
+            : expanded && {
+                left: -expanded.originX / stageScale,
+                top: -expanded.originY / stageScale,
+                width: stageWidth,
+                height: stageHeight,
+                transformOrigin: "top left",
+                transform: `scale(${1 / stageScale})`,
+              }
         }
       >
         {size.width > 0 && (
           <Stage
-            width={size.width}
-            height={size.height}
-            scaleX={scaleX}
-            scaleY={scaleY}
+            width={stageWidth}
+            height={stageHeight}
+            x={expanded?.originX ?? 0}
+            y={expanded?.originY ?? 0}
+            scaleX={scaleX * stageScale}
+            scaleY={scaleY * stageScale}
             listening={false}
           >
             <Layer ref={layer} listening={false} imageSmoothingEnabled>

@@ -836,9 +836,34 @@
 .ds-clip-toggle span {
   display: none;
 }
-.ds-clip-toggle { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; padding: 0; border: 1px solid var(--ds-line); border-radius: 50%; background: var(--ds-control); color: var(--ds-text); }
+.ds-clip-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--ds-line);
+  border-radius: 14px;
+  background: var(--ds-control);
+  color: var(--ds-text);
+}
+@container studio-workspace (min-width: 600px) {
+  .ds-canvas-controls .ds-clip-toggle {
+    width: auto;
+    padding-inline: 12px;
+    font-size: 12px;
+  }
+  .ds-canvas-controls .ds-clip-toggle span {
+    display: inline;
+  }
+}
 .ds-clip-toggle[aria-pressed="true"] {
-  color: #59cbd5;
+  background: var(--ds-selected);
+  color: var(--ds-selected-ink);
+  box-shadow: inset 0 0 0 1px var(--ds-accent);
 }
 .ds-editor-side,
 .ds-editor-actions {
@@ -2239,6 +2264,14 @@
 .ds-garment {
   position: relative;
   isolation: isolate;
+}
+/* In Both view, an unmasked object can cross its neighbor's mockup.
+   Paint artwork above both garments while keeping it in its own side's space. */
+[data-clipped="false"] > .ds-garment {
+  isolation: auto;
+}
+[data-clipped="false"] > .ds-garment .ds-editor-surface {
+  z-index: 1;
 }
 .ds-garment-light {
   position: absolute;

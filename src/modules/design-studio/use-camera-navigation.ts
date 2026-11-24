@@ -43,7 +43,7 @@ export function useCameraNavigation(
   useEffect(() => {
     const el = viewport.current;
     if (!el) return;
-    const points = new Map<number, { x: number; y: number }>();
+    const points = new Map<number, { x: number; y: number; startedAt: number }>();
     let frame = 0,
       pending: Camera | null = null,
       moved = false,
@@ -66,7 +66,11 @@ export function useCameraNavigation(
       if (event.target instanceof Element && event.target.closest("[data-editor-toolbar]")) return;
       if (event.button !== 0 || (event.pointerType !== "touch" && !canDrag())) return;
       if (!points.size) moved = false;
-      points.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      points.set(event.pointerId, {
+        x: event.clientX,
+        y: event.clientY,
+        startedAt: event.timeStamp,
+      });
       if (canDrag() || points.size > 1) {
         cancel();
         navigating = true;
@@ -78,9 +82,9 @@ export function useCameraNavigation(
     };
     const move = (event: PointerEvent) => {
       const previous = points.get(event.pointerId);
-      if (!previous) return;
+      if (!previous || event.timeStamp < previous.startedAt) return;
       const before = [...points.values()];
-      points.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      points.set(event.pointerId, { ...previous, x: event.clientX, y: event.clientY });
       const after = [...points.values()];
       if (navigating || canDrag()) event.stopImmediatePropagation();
       if (points.size >= 2) {
@@ -109,8 +113,15 @@ export function useCameraNavigation(
       }
     };
     const up = (event: PointerEvent) => {
-      if (event.type === "lostpointercapture" && event.target !== el) return;
-      if (event.type !== "pointerup") cancel();
+      const point = points.get(event.pointerId);
+      if (!point || event.timeStamp < point.startedAt) return;
+      if (
+        event.type === "lostpointercapture" &&
+        (event.target !== el || el.hasPointerCapture(event.pointerId))
+      )
+        return;
+      // The editor owns cancellation of its pointer. Navigation cancelled that
+      // transaction already if it took capture for a pan or pinch.
       if (navigating) event.stopImmediatePropagation();
       points.delete(event.pointerId);
       if (el.hasPointerCapture(event.pointerId)) el.releasePointerCapture(event.pointerId);
