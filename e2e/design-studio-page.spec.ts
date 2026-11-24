@@ -335,7 +335,9 @@ for (const locale of ["ar", "en"] as const) {
     await expect(page.locator(".ds-artwork-detail")).toContainText("1122 × 1402 px");
     await expect(
       page.getByRole("button", { name: copy.properties.add, exact: true }),
-    ).toBeDisabled();
+    ).toBeEnabled();
+    // Inspection remains non-mutating; placement is now an explicit M2 action.
+    await expect(page.locator(".ds-layers")).toContainText("(0)");
     await page
       .getByRole("button", { name: locale === "ar" ? "مجردة" : "Abstract", exact: true })
       .click();

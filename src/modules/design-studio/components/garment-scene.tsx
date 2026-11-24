@@ -1,10 +1,14 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { GarmentImage } from "./garment-image";
+import { SurfaceBoundary } from "../editor/surface-boundary";
+import type { Editor } from "../editor/use-editor";
 import { fitViewport } from "../viewport";
 import type { AvailableVariant, LocalizedStudioProps, ViewMode } from "../types";
 
 /** Local crossfade: both image groups stay in the canvas stacking context. */
 export function GarmentScene({
+  editor,
+  interactive,
   view,
   variant,
   viewport,
@@ -14,6 +18,8 @@ export function GarmentScene({
   locale,
   copy,
 }: LocalizedStudioProps & {
+  editor: Editor;
+  interactive: boolean;
   view: ViewMode;
   variant: AvailableVariant;
   viewport: { width: number; height: number } | null;
@@ -97,17 +103,28 @@ export function GarmentScene({
             }
           >
             <span className="ds-garment-light" aria-hidden="true" />
-            <GarmentImage
-              asset={variant.mockups[side]}
-              highResolution={focus || zoom > 100}
-              renderedWidth={
-                ((((fitted?.imageHeight ?? 200) * variant.mockups[side].width) /
-                  variant.mockups[side].height) *
-                  zoom) /
-                100
-              }
-              alt={exiting ? "" : `${copy.workspace[side]} - ${variant.name[locale]}`}
-            />
+            <div className="ds-garment-image">
+              <GarmentImage
+                asset={variant.mockups[side]}
+                highResolution={focus || zoom > 100}
+                renderedWidth={
+                  ((((fitted?.imageHeight ?? 200) * variant.mockups[side].width) /
+                    variant.mockups[side].height) *
+                    zoom) /
+                  100
+                }
+                alt={exiting ? "" : `${copy.workspace[side]} - ${variant.name[locale]}`}
+              />
+              <SurfaceBoundary
+                maskSrc={variant.mockups[side].originalSrc}
+                editor={editor}
+                side={side}
+                interactive={interactive && !exiting}
+                zoom={zoom}
+                locale={locale}
+                copy={copy}
+              />
+            </div>
             <figcaption>{copy.workspace[side]}</figcaption>
           </figure>
         ))}

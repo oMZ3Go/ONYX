@@ -1,0 +1,30 @@
+{
+  "crown": {
+    "src": "/images/landing/design-studio/prints/print-crown.png",
+    "sha256": "f1b1fa26e3d72d36652db5d4cf4142a048080f6bafdd6eac4774f9d334445010",
+    "byteLength": 73161,
+    "width": 364,
+    "height": 368
+  },
+  "dragon": {
+    "src": "/images/landing/design-studio/prints/print-dragon.png",
+    "sha256": "d118c66970fa497deae7f9efbdda2a5a764dbf4f1ee5977b1455e9e69773e160",
+    "byteLength": 2162266,
+    "width": 1122,
+    "height": 1402
+  },
+  "nature": {
+    "src": "/images/landing/design-studio/prints/print-nature.png",
+    "sha256": "814dfa43df8755fa4ee8aecdf426ae570e1716ccf5103f16262b6043e37fa30f",
+    "byteLength": 1429623,
+    "width": 1356,
+    "height": 1160
+  },
+  "space": {
+    "src": "/images/landing/design-studio/prints/print-space.png",
+    "sha256": "a379334c87068bfff35f220848c72a3f592c06a8b976ff613a3f20a551177ea4",
+    "byteLength": 1273013,
+    "width": 1443,
+    "height": 1090
+  }
+}

@@ -2,11 +2,15 @@
 
 Status: **R** architecture satisfying confirmed portability and two-slot requirements. See [format ADR](decisions/0003-project-format.md). No import/export or autosave is implemented yet.
 
+Phase 03.2 M1 added the tested [v2 document/migration and editor integration contract](editor-integration.md). Approved M2 now initializes the live editor through that migration and keeps canonical v2 documents in browser memory across locale navigation. Reload starts a new project; there is no project persistence. The v2 parser is not a portable-package decoder and does not validate asset bytes or supplier authorization. Current catalog originals have a reproducible digest/dimension manifest and integrity tests. [M2 implementation](../phase-03/phase-03.2-milestone-2.md) records commands, rendering and preview-only silhouette masking.
+
 ## Canonical document
 
 Use an ONYX-owned schema with `schemaVersion`, project ID, revision, creation/update times, garment/variant references and snapshot, print-spec revision, per-side print areas and ordered object trees, asset manifest and font manifest. Nodes are discriminated types (image, text, shape, group), with stable IDs, visibility/lock state and finite transforms. Text preserves Unicode content, language/direction, font identity/version and supported styling. Object names are plain text.
 
 Recommended document coordinate unit: millimetres, top-left origin per side, x right/y down, explicit rotation convention. UI language does not mirror the physical coordinate system. Define origin, matrix order and group transform semantics before adapter implementation. Zoom/device-pixel ratio belongs to viewport state, never persisted physical geometry. Avoid arbitrary precision loss through repeated adapter conversions.
+
+Until physical calibration exists, v2 uses explicitly tagged `preview-px` coordinates tied to original mockup identity/revision. Those pixels are not millimetres or printable dimensions. Approved calibration permits an explicit reviewed conversion to `mm`, never an implicit reinterpretation. See the executable affine mapping and migration tests linked from the integration contract. Groups remain unsupported pending an explicit schema rule.
 
 Garment mockup IDs/references are preview metadata and never print objects. Render adapter translates canonical objects to Fabric/Konva; export adapter renders canonical artwork into an isolated surface. Preserve originals of raster assets for quality analysis and print output. Canvas engine state is disposable, not authoritative.
 

@@ -2,6 +2,9 @@ import Image from "next/image";
 import { Icon } from "@/components/icon";
 import { StudioIcon } from "./studio-icon";
 import { InspectorLayout } from "./inspector-layout";
+import { SideTarget, TransformControls, LayerControls } from "../editor/editor-controls";
+import type { Editor } from "../editor/use-editor";
+import { useState } from "react";
 import type {
   AvailableVariant,
   CatalogArtwork,
@@ -10,6 +13,7 @@ import type {
 } from "../types";
 
 interface Props extends LocalizedStudioProps {
+  editor: Editor;
   compact: boolean;
   split: number;
   onSplit: (ratio: number) => void;
@@ -22,6 +26,7 @@ interface Props extends LocalizedStudioProps {
   onVariant: (id: string) => void;
 }
 export function Inspector({
+  editor,
   locale,
   copy,
   product,
@@ -35,6 +40,8 @@ export function Inspector({
   split,
   onSplit,
 }: Props) {
+  const [placementError, setPlacementError] = useState(false);
+  const count = editor.state.project.sides[editor.state.activeSide].layerOrder.length;
   return (
     <InspectorLayout
       compact={compact}
@@ -136,18 +143,26 @@ export function Inspector({
                     </dd>
                   </div>
                 </dl>
-                <p className="ds-subtle">{copy.properties.browseOnly}</p>
+                <p className="ds-subtle">{copy.editor.rightsNote}</p>
+                <SideTarget editor={editor} copy={copy} locale={locale} />
                 <button
                   type="button"
                   className="ds-disabled-action"
-                  disabled
+                  onClick={() => {
+                    try {
+                      editor.controller.add(editor.state.activeSide, artwork.id);
+                      setPlacementError(false);
+                    } catch {
+                      setPlacementError(true);
+                    }
+                  }}
                   aria-describedby="ds-placement-note"
                 >
                   <Icon name="image" />
                   {copy.properties.add}
                 </button>
                 <p className="ds-subtle" id="ds-placement-note">
-                  {copy.deferred.placement}
+                  {placementError ? copy.editor.invalid : copy.editor.previewNote}
                 </p>
               </div>
             ) : (
@@ -157,6 +172,9 @@ export function Inspector({
                 <p>{copy.properties.selectHint}</p>
               </div>
             )}
+            {tab === "element" && editor.state.selection[editor.state.activeSide].length > 0 && (
+              <TransformControls editor={editor} copy={copy} locale={locale} />
+            )}
           </div>
         </section>
       }
@@ -164,15 +182,19 @@ export function Inspector({
         <section className="ds-layers ds-surface" aria-labelledby="ds-layers-title">
           <div className="ds-panel-title">
             <h2 id="ds-layers-title">
-              {copy.layers.title} <span>(0)</span>
+              {copy.layers.title} <span>({count})</span>
             </h2>
             <StudioIcon name="layers" />
           </div>
-          <div className="ds-empty">
-            <StudioIcon name="layers" />
-            <h3>{copy.layers.empty}</h3>
-            <p>{copy.layers.hint}</p>
-          </div>
+          {count > 0 ? (
+            <LayerControls editor={editor} copy={copy} locale={locale} />
+          ) : (
+            <div className="ds-empty">
+              <StudioIcon name="layers" />
+              <h3>{copy.layers.empty}</h3>
+              <p>{copy.layers.hint}</p>
+            </div>
+          )}
           <div className="ds-layer-footnote">
             <StudioIcon name="eye" />
             <span>{copy.layers.separateSides}</span>

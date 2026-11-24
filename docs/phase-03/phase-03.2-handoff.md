@@ -1,6 +1,10 @@
 # Phase 03.2 — Functional 2D editor handoff
 
+**Current follow-up, 2026-11-23:** The owner approved M1 and the Konva versions, then explicitly authorized M2 artwork editing, rendering-quality fixes, contextual icons and garment-silhouette preview clipping. See the [M2 implementation and validation report](phase-03.2-milestone-2.md). The proposal and decision gates below are retained as historical context, not the current authorization state. Saving, uploads, text, commerce and production export remain deferred.
+
 Status: **proposal only**, 2026-11-18. No engine, upload, saving, export or pricing implementation is authorized by this handoff. [Phase 03.1](implementation.md) supplies the existing bilingual workspace, camera, themes, panels, catalog and disabled editor controls. The current agreed numbering is Phase 02 = landing showcase, Phase 03.1 = workspace foundation, Phase 03.2 = functional editor. Older roadmap and spike numbers remain historical.
+
+**M1 follow-up, 2026-11-21:** The separately requested engine/model milestone produced [measured comparison evidence](../spikes/canvas-engine-results.md), an updated [ADR 0002](../architecture/decisions/0002-canvas-engine.md), and the [schema, coordinates, history/integration contract and M2 plan](../architecture/editor-integration.md). Production engine adoption and main editing remain pending owner review. The earlier recommendations below are historical input; the M1 contract explicitly distinguishes uncalibrated preview pixels from approved millimetres.
 
 ## Engine recommendation and decision gate
 

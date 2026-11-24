@@ -1,6 +1,15 @@
 import type { SVGProps } from "react";
 
 const paths = {
+  centerX: "M12 2v20M3 8h18v8H3V8Z",
+  centerY: "M2 12h20M8 3h8v18H8V3Z",
+  forward: "M5 10h9v9H5V10Zm5-5h9v9M14 2v5m-3-3 3-3 3 3",
+  backward: "M10 5h9v9h-9V5ZM5 10v9h9M5 17v5m-3-3 3 3 3-3",
+  duplicate: "M8 8h12v12H8V8ZM4 16H3V3h13v1",
+  delete: "M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7",
+  lock: "M5 10h14v11H5V10Zm3 0V6a4 4 0 0 1 8 0v4M12 14v3",
+  unlock: "M5 10h14v11H5V10Zm3 0V6a4 4 0 0 1 8 0M12 14v3",
+  clip: "m8 3-6 4 3 5 3-2v11h8V10l3 2 3-5-6-4M8 3l4 4 4-4M10 13l2 2 4-4",
   sun: "M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5",
   moon: "M20 15.5A9 9 0 0 1 8.5 4a9 9 0 1 0 11.5 11.5Z",
   front: "m8 3-6 4 3 5 3-2v11h8V10l3 2 3-5-6-4M8 3l4 4 4-4M10 15h4l1 3H9l1-3Z",

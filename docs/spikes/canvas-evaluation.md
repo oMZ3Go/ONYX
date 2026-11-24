@@ -1,6 +1,6 @@
 # Phase 02 specification — Fabric.js vs Konva/react-konva
 
-Status: planned experiment, not executed. ADR 0002 remains pending. Objective: select a maintainable engine/adapter and text/export strategy using identical representative tasks. This is a bounded harness, not the full studio.
+Status: historical full-editor acceptance plan. A bounded Phase 03.2 M1 comparison of Konva/react-konva, Fabric and SVG/DOM was executed on 2026-11-21; see [measured results and per-gate coverage](canvas-engine-results.md). ADR 0002 now recommends Konva for owner review. **The complete hard-gate suite below has not passed.** Unavailable physical-device/human checks remain open, and later persistence/production work is not implemented by M1.
 
 ## Setup and reproducibility
 

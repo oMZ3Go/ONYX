@@ -1,4 +1,7 @@
 import { GarmentScene } from "./garment-scene";
+import type { Editor } from "../editor/use-editor";
+import { ContextToolbar } from "../editor/context-toolbar";
+import { identity, type SurfaceGeometry } from "../editor/coordinates";
 import { initialCamera, zoomAt, type Camera } from "../camera";
 import { useCameraNavigation } from "../use-camera-navigation";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
@@ -14,6 +17,7 @@ import type {
 } from "../types";
 
 interface Props extends LocalizedStudioProps {
+  editor: Editor;
   variant: AvailableVariant;
   workspace: WorkspaceState;
   theme: WorkspaceTheme;
@@ -27,6 +31,7 @@ interface Props extends LocalizedStudioProps {
   compact: boolean;
 }
 export function Workspace({
+  editor,
   locale,
   copy,
   variant,
@@ -76,12 +81,60 @@ export function Workspace({
           maximum: fitted.maximum,
         }
       : null;
-  const navigation = useCameraNavigation(viewport, camera, geometry, onCamera);
+  const navigation = useCameraNavigation(
+    viewport,
+    camera,
+    geometry,
+    onCamera,
+    editor.controller.cancel,
+  );
+  useEffect(() => {
+    editor.controller.cancel();
+  }, [
+    editor.controller,
+    camera.x,
+    camera.y,
+    camera.zoom,
+    viewportSize?.width,
+    viewportSize?.height,
+  ]);
   const zoom = camera.zoom;
   const changeZoom = (value: number) => {
     if (geometry) onCamera(zoomAt(camera, value, { x: 0, y: 0 }, geometry));
   };
   const fit = () => onCamera(initialCamera);
+  const clipToggle = <button type="button" className="ds-clip-toggle" aria-label={copy.editor.clip} title={`${copy.editor.clip} · ${copy.editor.clipHint}`} aria-pressed={editor.state.clipGarment} onClick={() => editor.controller.setClip(!editor.state.clipGarment)}><StudioIcon name="clip" /><span>{copy.editor.clip}</span></button>;
+  const activeIndex = sides.indexOf(editor.state.activeSide);
+  const source = editor.state.project.sides[editor.state.activeSide].space;
+  const imageWidth = fitted
+    ? (fitted.imageHeight * variant.mockups[editor.state.activeSide].width) /
+      variant.mockups[editor.state.activeSide].height
+    : 0;
+  const toolbarGeometry: SurfaceGeometry | null =
+    fitted && viewportSize && activeIndex >= 0
+      ? {
+          viewport: { ...viewportSize, left: 0, top: 0 },
+          scene: { width: fitted.width, height: fitted.height },
+          mockup: {
+            x: stacked
+              ? (fitted.width - imageWidth) / 2
+              : sides
+                  .slice(0, activeIndex)
+                  .reduce(
+                    (sum, side) =>
+                      sum +
+                      (fitted.imageHeight * variant.mockups[side].width) /
+                        variant.mockups[side].height +
+                      20,
+                    0,
+                  ),
+            y: stacked ? activeIndex * (fitted.imageHeight + (captions ? 30 : 0) + 20) : 0,
+            cssPixelsPerSourcePixel: fitted.imageHeight / source.height,
+          },
+          documentToMockup: identity,
+          camera,
+        }
+      : null;
   return (
     <section className="ds-canvas" aria-label={copy.workspace.title} data-theme={theme}>
       <div className="ds-canvas-controls">
@@ -112,11 +165,21 @@ export function Workspace({
             </button>
           ))}
         </div>
+        {!focus && clipToggle}
       </div>
       <div className="ds-stage">
         <div className="ds-studio-light" aria-hidden="true" />
         <div
           className="ds-viewport"
+          tabIndex={-1}
+          onClick={(event) => {
+            if (event.target === event.currentTarget && !navigation.activeHand)
+              editor.controller.select(editor.state.activeSide, []);
+            if (event.target instanceof HTMLImageElement && !navigation.activeHand) {
+              const side = event.target.closest<HTMLElement>(".ds-garment")?.dataset.side;
+              if (side === "front" || side === "back") editor.controller.select(side, []);
+            }
+          }}
           ref={viewport}
           role="region"
           aria-label={copy.workspace.preview}
@@ -148,6 +211,8 @@ export function Workspace({
             }}
           >
             <GarmentScene
+              editor={editor}
+              interactive={!navigation.activeHand}
               view={workspace.view}
               variant={variant}
               viewport={viewportSize}
@@ -158,6 +223,14 @@ export function Workspace({
               copy={copy}
             />
           </div>
+          {!navigation.activeHand && toolbarGeometry && (
+            <ContextToolbar
+              editor={editor}
+              geometry={toolbarGeometry}
+              locale={locale}
+              copy={copy}
+            />
+          )}
         </div>
       </div>
       <div className="ds-canvas-bottom">
@@ -193,7 +266,8 @@ export function Workspace({
           <div className="ds-history" aria-label={copy.workspace.history}>
             <button
               type="button"
-              disabled
+              disabled={!editor.state.undoCount}
+              onClick={() => editor.controller.history("undo")}
               aria-label={copy.workspace.undo}
               aria-describedby="ds-editing-note"
             >
@@ -203,7 +277,8 @@ export function Workspace({
             <span aria-hidden="true" />
             <button
               type="button"
-              disabled
+              disabled={!editor.state.redoCount}
+              onClick={() => editor.controller.history("redo")}
               aria-label={copy.workspace.redo}
               aria-describedby="ds-editing-note"
             >
@@ -242,10 +317,11 @@ export function Workspace({
             {focus ? <Icon name="close" /> : <StudioIcon name="fullscreen" />}
             <span>{focus ? copy.exitFullscreen : copy.fullscreen}</span>
           </button>
+          {focus && clipToggle}
         </div>
       </div>
       <p className="ds-workspace-note" id="ds-editing-note">
-        {copy.deferred.editing}
+        {copy.editor.previewNote}
       </p>
     </section>
   );

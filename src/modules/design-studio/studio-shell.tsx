@@ -21,7 +21,8 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { assets } from "@/modules/landing/assets";
 import { direction } from "@/i18n/config";
 import { availableVariants, compatibleArtworks } from "./catalog/selectors";
-import { createProject, initialWorkspace } from "./state";
+import { initialWorkspace } from "./state";
+import { useEditor } from "./editor/use-editor";
 import { AssetLibrary } from "./components/asset-library";
 import { Inspector } from "./components/inspector";
 import { Workspace } from "./components/workspace";
@@ -110,12 +111,19 @@ export function StudioShell({
   const [theme, setTheme] = useWorkspaceTheme(initialTheme);
   useEffect(() => initializeLogoMotion(), []);
   const variants = availableVariants(product);
-  const [project, setProject] = useState(() =>
-    createProject(catalog.revision, product.id, variants[0]!.id),
-  );
-  const [workspace, setWorkspace] = useState(() =>
-    initialWorkspace(catalog.categories[0]?.id ?? ""),
-  );
+  const editor = useEditor(catalog, product.id, variants[0]!.id);
+  const project = editor.state.project;
+  const selectedIds = editor.state.selection[editor.state.activeSide].join(",");
+  const [workspaceState, setWorkspace] = useState<WorkspaceState>(() => ({
+    ...initialWorkspace(catalog.categories[0]?.id ?? ""),
+    inspectorTab: selectedIds ? ("element" as const) : ("garment" as const),
+  }));
+  const workspace = { ...workspaceState, view: editor.state.view };
+  const [previousSelection, setPreviousSelection] = useState(selectedIds);
+  if (selectedIds !== previousSelection) {
+    setPreviousSelection(selectedIds);
+    if (selectedIds) setWorkspace((current) => ({ ...current, inspectorTab: "element" }));
+  }
   const restorePanelFocus = useRef<Panel>(null);
   useEffect(() => {
     if (workspace.panel === null && restorePanelFocus.current) {
@@ -127,7 +135,16 @@ export function StudioShell({
   }, [workspace.panel]);
   const variant = variants.find((item) => item.id === project.garment.variantId)!;
   const artworks = compatibleArtworks(catalog.artworks, product.id, variant.id);
-  const artwork = artworks.find((item) => item.id === workspace.inspectedArtworkId);
+  const selectedObject =
+    project.sides[editor.state.activeSide].objectsById[
+      editor.state.selection[editor.state.activeSide][0] ?? ""
+    ];
+  const artwork = artworks.find(
+    (item) =>
+      item.id ===
+      (workspace.inspectedArtworkId ??
+        (selectedObject?.kind === "artwork" ? selectedObject.artwork.id : null)),
+  );
   const update = (patch: Partial<WorkspaceState>) =>
     setWorkspace((current) => ({ ...current, ...patch }));
   const openPanel = (panel: Exclude<Panel, null>) => {
@@ -161,7 +178,7 @@ export function StudioShell({
       if (event.key === "Tab") {
         const controls = [
           ...document.querySelectorAll<HTMLButtonElement>(
-            ".ds-canvas-bottom button:not(:disabled)",
+            ".ds-context-toolbar button:not(:disabled), .ds-canvas-bottom button:not(:disabled)",
           ),
         ].filter((button) => button.getClientRects().length);
         const target = event.shiftKey ? controls.at(-1) : controls[0];
@@ -173,6 +190,12 @@ export function StudioShell({
         return;
       }
       if (event.key !== "Escape") return;
+      if (editor.controller.getGesture()) {
+        editor.controller.cancel();
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
       event.preventDefault();
       event.stopImmediatePropagation();
       exitFocus();
@@ -183,7 +206,7 @@ export function StudioShell({
       document.removeEventListener("keydown", escape, true);
       document.getElementById("ds-fullscreen")?.focus({ preventScroll: true });
     };
-  }, [focus]);
+  }, [focus, editor.controller]);
   const library = (
     <AssetLibrary
       compact={compact}
@@ -202,6 +225,7 @@ export function StudioShell({
   );
   const inspector = (
     <Inspector
+      editor={editor}
       compact={compact}
       split={panels.split}
       onSplit={(split) => setPanels({ split })}
@@ -218,10 +242,7 @@ export function StudioShell({
           variantId !== project.garment.variantId &&
           variants.some((item) => item.id === variantId)
         ) {
-          setProject((current) => ({
-            ...current,
-            garment: { ...current.garment, variantId },
-          }));
+          // Variant changes need reviewed registration/compatibility migration before enabling.
           update({ inspectedArtworkId: null });
         }
       }}
@@ -266,6 +287,9 @@ export function StudioShell({
   return (
     <div
       className="ds-page"
+      data-document-revision={project.revision}
+      data-undo-count={editor.state.undoCount}
+      data-redo-count={editor.state.redoCount}
       data-focus={focus}
       data-resizing={resizing}
       data-panel-dock={dock}
@@ -365,6 +389,7 @@ export function StudioShell({
           aria-label={focus ? copy.fullscreen : undefined}
         >
           <Workspace
+            editor={editor}
             compact={compact}
             focus={focus}
             onFocus={toggleFocus}
@@ -374,7 +399,7 @@ export function StudioShell({
             variant={variant}
             workspace={workspace}
             theme={theme}
-            onView={(view) => update({ view })}
+            onView={(view) => editor.controller.setView(view)}
             camera={camera}
             onCamera={setCamera}
             onGrid={() => update({ grid: !workspace.grid })}

@@ -1,0 +1,919 @@
+{
+  "recoveredOn": "2026-11-22",
+  "source": "playwright-report/index.html",
+  "sourceSha256": "2e3c7480ea30d90e42db189c595b80a89f779026b666e1ff0c41e0fd0f55023d",
+  "command": "npm.cmd run test:e2e -- design-studio",
+  "startTime": "2026-11-21T12:37:28.301Z",
+  "durationMs": 633032.6849999999,
+  "stats": {
+    "total": 69,
+    "expected": 69,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "ok": true
+  },
+  "errors": [],
+  "metadata": {
+    "actualWorkers": 1
+  },
+  "tests": [
+    {
+      "file": "design-studio-final.spec.ts",
+      "title": "en: continuous garment under glass, toolbar groups and accessible inspector split",
+      "outcome": "expected",
+      "durationMs": 7723,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-final.spec.ts",
+      "title": "en: floating panels stay bounded and upper tool tabs work with mouse and touch",
+      "outcome": "expected",
+      "durationMs": 12973,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-final.spec.ts",
+      "title": "ar: continuous garment under glass, toolbar groups and accessible inspector split",
+      "outcome": "expected",
+      "durationMs": 7499,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-final.spec.ts",
+      "title": "ar: floating panels stay bounded and upper tool tabs work with mouse and touch",
+      "outcome": "expected",
+      "durationMs": 13274,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-foundations.spec.ts",
+      "title": "en: five mobile docks preserve Pin, tools and camera with bounded width and useful previews",
+      "outcome": "expected",
+      "durationMs": 37454,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-foundations.spec.ts",
+      "title": "en: Top Bar appearance and distinct view controls reclaim preview space",
+      "outcome": "expected",
+      "durationMs": 17215,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-foundations.spec.ts",
+      "title": "en: side width touch cancellation, outside dismissal and locale persistence",
+      "outcome": "expected",
+      "durationMs": 7830,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-foundations.spec.ts",
+      "title": "ar: five mobile docks preserve Pin, tools and camera with bounded width and useful previews",
+      "outcome": "expected",
+      "durationMs": 37623,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-foundations.spec.ts",
+      "title": "ar: Top Bar appearance and distinct view controls reclaim preview space",
+      "outcome": "expected",
+      "durationMs": 16750,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-foundations.spec.ts",
+      "title": "ar: side width touch cancellation, outside dismissal and locale persistence",
+      "outcome": "expected",
+      "durationMs": 8103,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-layout.spec.ts",
+      "title": "en: independent desktop and tablet panels preserve content and release width",
+      "outcome": "expected",
+      "durationMs": 10382,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-layout.spec.ts",
+      "title": "en: fullscreen preserves every view, appearance and layout with working zoom and keyboard exit",
+      "outcome": "expected",
+      "durationMs": 12842,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-layout.spec.ts",
+      "title": "en: mobile header, measured garment, reversible sheet motion and rapid tools",
+      "outcome": "expected",
+      "durationMs": 8042,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-layout.spec.ts",
+      "title": "ar: independent desktop and tablet panels preserve content and release width",
+      "outcome": "expected",
+      "durationMs": 10513,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-layout.spec.ts",
+      "title": "ar: fullscreen preserves every view, appearance and layout with working zoom and keyboard exit",
+      "outcome": "expected",
+      "durationMs": 13108,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-layout.spec.ts",
+      "title": "ar: mobile header, measured garment, reversible sheet motion and rapid tools",
+      "outcome": "expected",
+      "durationMs": 7359,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-navigation.spec.ts",
+      "title": "en: camera zooms beyond fit, anchors the pointer and pans both sides without page scroll",
+      "outcome": "expected",
+      "durationMs": 3880,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-navigation.spec.ts",
+      "title": "en: panel edges resize with pointer and keyboard, preserve preferences and clamp after reflow",
+      "outcome": "expected",
+      "durationMs": 4433,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-navigation.spec.ts",
+      "title": "en: mobile panel drag, size menu, docking, reset, rotation and canvas touch gestures",
+      "outcome": "expected",
+      "durationMs": 4799,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-navigation.spec.ts",
+      "title": "ar: camera zooms beyond fit, anchors the pointer and pans both sides without page scroll",
+      "outcome": "expected",
+      "durationMs": 4490,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-navigation.spec.ts",
+      "title": "ar: panel edges resize with pointer and keyboard, preserve preferences and clamp after reflow",
+      "outcome": "expected",
+      "durationMs": 4412,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-navigation.spec.ts",
+      "title": "ar: mobile panel drag, size menu, docking, reset, rotation and canvas touch gestures",
+      "outcome": "expected",
+      "durationMs": 4837,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-navigation.spec.ts",
+      "title": "fullscreen originals at DPR 1 replace decoded previews without blanking and preserve alpha",
+      "outcome": "expected",
+      "durationMs": 4911,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-navigation.spec.ts",
+      "title": "fullscreen originals at DPR 2 replace decoded previews without blanking and preserve alpha",
+      "outcome": "expected",
+      "durationMs": 6959,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "ar: full-page themes, grid, bounded centered zoom and fit",
+      "outcome": "expected",
+      "durationMs": 3471,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "ar: exclusive library, catalog integrity and honest unavailable actions",
+      "outcome": "expected",
+      "durationMs": 2639,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "ar: viewport matrix, short screens, both modes and visual captures",
+      "outcome": "expected",
+      "durationMs": 64446,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "ar: section-scroll entry, localized studio route and centered home link",
+      "outcome": "expected",
+      "durationMs": 4858,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "en: full-page themes, grid, bounded centered zoom and fit",
+      "outcome": "expected",
+      "durationMs": 3545,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "en: exclusive library, catalog integrity and honest unavailable actions",
+      "outcome": "expected",
+      "durationMs": 2524,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "en: viewport matrix, short screens, both modes and visual captures",
+      "outcome": "expected",
+      "durationMs": 64250,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "en: section-scroll entry, localized studio route and centered home link",
+      "outcome": "expected",
+      "durationMs": 4333,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "studio keyboard focus and reduced motion",
+      "outcome": "expected",
+      "durationMs": 304,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "en: theme preference survives locale navigation, reload and history without saving",
+      "outcome": "expected",
+      "durationMs": 1735,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "en: rapid garment switching settles on the real view and preserves zoom",
+      "outcome": "expected",
+      "durationMs": 2226,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "en: mobile tools keep the hoodie and controls reachable with one-tap replacement",
+      "outcome": "expected",
+      "durationMs": 2570,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "ar: theme preference survives locale navigation, reload and history without saving",
+      "outcome": "expected",
+      "durationMs": 1627,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "ar: rapid garment switching settles on the real view and preserves zoom",
+      "outcome": "expected",
+      "durationMs": 2201,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "ar: mobile tools keep the hoodie and controls reachable with one-tap replacement",
+      "outcome": "expected",
+      "durationMs": 2224,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "studio logo reuses the landing paint and keyboard focus behavior",
+      "outcome": "expected",
+      "durationMs": 746,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-page.spec.ts",
+      "title": "reduced-motion entry and back/forward navigation remain usable",
+      "outcome": "expected",
+      "durationMs": 749,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "en: universal mobile Pin survives docking, heights and unified header navigation",
+      "outcome": "expected",
+      "durationMs": 23897,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "en: transition frames stay below glass and header through rapid high-zoom view changes",
+      "outcome": "expected",
+      "durationMs": 12835,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "en: scoped selection and reduced-motion keyboard controls",
+      "outcome": "expected",
+      "durationMs": 600,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "en: pin lifecycle, touch cancellation, layout controls and reachable mobile tools",
+      "outcome": "expected",
+      "durationMs": 19167,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "en: floating drag release rejects delayed retargeted clicks",
+      "outcome": "expected",
+      "durationMs": 1726,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "ar: universal mobile Pin survives docking, heights and unified header navigation",
+      "outcome": "expected",
+      "durationMs": 23995,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "ar: transition frames stay below glass and header through rapid high-zoom view changes",
+      "outcome": "expected",
+      "durationMs": 13500,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "ar: scoped selection and reduced-motion keyboard controls",
+      "outcome": "expected",
+      "durationMs": 715,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "ar: pin lifecycle, touch cancellation, layout controls and reachable mobile tools",
+      "outcome": "expected",
+      "durationMs": 20784,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-refinements.spec.ts",
+      "title": "ar: floating drag release rejects delayed retargeted clicks",
+      "outcome": "expected",
+      "durationMs": 1721,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-scrollbars.spec.ts",
+      "title": "en: native panel scrollbars adapt themes, preserve offsets and fit every dock",
+      "outcome": "expected",
+      "durationMs": 14955,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-scrollbars.spec.ts",
+      "title": "en: native panel scrolling stays separate from touch dragging and tool replacement",
+      "outcome": "expected",
+      "durationMs": 6643,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-scrollbars.spec.ts",
+      "title": "ar: native panel scrollbars adapt themes, preserve offsets and fit every dock",
+      "outcome": "expected",
+      "durationMs": 14836,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio-scrollbars.spec.ts",
+      "title": "ar: native panel scrolling stays separate from touch dragging and tool replacement",
+      "outcome": "expected",
+      "durationMs": 6533,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "en: refined toolbar, clean palette, foreground brush and desktop steps",
+      "outcome": "expected",
+      "durationMs": 1147,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "en: studio selection, keyboard, rapid changes and honest editor CTA",
+      "outcome": "expected",
+      "durationMs": 827,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "en: studio cursor loops through measured targets and resumes after keyboard selection",
+      "outcome": "expected",
+      "durationMs": 705,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "en: studio geometry remains anchored across mobile, tablet, desktop and zoom layouts",
+      "outcome": "expected",
+      "durationMs": 5059,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "ar: refined toolbar, clean palette, foreground brush and desktop steps",
+      "outcome": "expected",
+      "durationMs": 1166,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "ar: studio selection, keyboard, rapid changes and honest editor CTA",
+      "outcome": "expected",
+      "durationMs": 809,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "ar: studio cursor loops through measured targets and resumes after keyboard selection",
+      "outcome": "expected",
+      "durationMs": 694,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "ar: studio geometry remains anchored across mobile, tablet, desktop and zoom layouts",
+      "outcome": "expected",
+      "durationMs": 5061,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "only selector hover hides the cursor and prevents conflicting automatic clicks",
+      "outcome": "expected",
+      "durationMs": 1676,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "studio pauses for global pause, document visibility, offscreen, reduced motion and resize",
+      "outcome": "expected",
+      "durationMs": 7759,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "touch selection restarts the demo without creating a sticky hover",
+      "outcome": "expected",
+      "durationMs": 983,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "studio crossfades survive rapid input and the print follows the floating garment",
+      "outcome": "expected",
+      "durationMs": 4673,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "foreground brush stays fixed through two float cycles while garment, print and panels move",
+      "outcome": "expected",
+      "durationMs": 491,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "design-studio.spec.ts",
+      "title": "studio float keeps opposite phase and atmosphere follows lifecycle",
+      "outcome": "expected",
+      "durationMs": 3001,
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    }
+  ]
+}

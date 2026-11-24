@@ -6,6 +6,7 @@ export function useCameraNavigation(
   camera: Camera,
   geometry: CameraGeometry | null,
   onCamera: (camera: Camera) => void,
+  cancelArtwork: () => void,
 ) {
   const [hand, setHand] = useState(false);
   const [temporaryHand, setTemporaryHand] = useState(false);
@@ -38,13 +39,15 @@ export function useCameraNavigation(
     geometry ? zoomAt(live.current, next, anchor, geometry) : live.current,
   );
   const canDrag = useEffectEvent(() => hand || temporaryHand);
+  const cancel = useEffectEvent(cancelArtwork);
   useEffect(() => {
     const el = viewport.current;
     if (!el) return;
     const points = new Map<number, { x: number; y: number }>();
     let frame = 0,
       pending: Camera | null = null,
-      moved = false;
+      moved = false,
+      navigating = false;
     const queue = (next: Camera) => {
       live.current = next;
       pending = next;
@@ -60,12 +63,16 @@ export function useCameraNavigation(
       return { x: x - b.x - b.width / 2, y: y - b.y - b.height / 2 };
     };
     const down = (event: PointerEvent) => {
+      if (event.target instanceof Element && event.target.closest("[data-editor-toolbar]")) return;
       if (event.button !== 0 || (event.pointerType !== "touch" && !canDrag())) return;
       if (!points.size) moved = false;
       points.set(event.pointerId, { x: event.clientX, y: event.clientY });
-      el.setPointerCapture(event.pointerId);
       if (canDrag() || points.size > 1) {
+        cancel();
+        navigating = true;
+        for (const id of points.keys()) el.setPointerCapture(id);
         event.preventDefault();
+        event.stopImmediatePropagation();
         setDragging(true);
       }
     };
@@ -75,6 +82,7 @@ export function useCameraNavigation(
       const before = [...points.values()];
       points.set(event.pointerId, { x: event.clientX, y: event.clientY });
       const after = [...points.values()];
+      if (navigating || canDrag()) event.stopImmediatePropagation();
       if (points.size >= 2) {
         event.preventDefault();
         moved = true;
@@ -101,11 +109,18 @@ export function useCameraNavigation(
       }
     };
     const up = (event: PointerEvent) => {
+      if (event.type === "lostpointercapture" && event.target !== el) return;
+      if (event.type !== "pointerup") cancel();
+      if (navigating) event.stopImmediatePropagation();
       points.delete(event.pointerId);
       if (el.hasPointerCapture(event.pointerId)) el.releasePointerCapture(event.pointerId);
-      if (!points.size) setDragging(false);
+      if (!points.size) {
+        setDragging(false);
+        navigating = false;
+      }
     };
     const wheel = (event: WheelEvent) => {
+      cancel();
       event.preventDefault();
       const delta =
         event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? el.clientHeight : 1);
@@ -133,21 +148,24 @@ export function useCameraNavigation(
       )
         return;
       event.preventDefault();
+      cancel();
       setTemporaryHand(event.type === "keydown");
     };
     const release = () => {
       setTemporaryHand(false);
       setDragging(false);
       points.clear();
+      navigating = false;
+      cancel();
     };
     const keyup = (event: KeyboardEvent) => {
       if (event.code === "Space") setTemporaryHand(false);
     };
-    el.addEventListener("pointerdown", down);
-    el.addEventListener("pointermove", move);
-    el.addEventListener("pointerup", up);
-    el.addEventListener("pointercancel", up);
-    el.addEventListener("lostpointercapture", up);
+    el.addEventListener("pointerdown", down, true);
+    el.addEventListener("pointermove", move, true);
+    el.addEventListener("pointerup", up, true);
+    el.addEventListener("pointercancel", up, true);
+    el.addEventListener("lostpointercapture", up, true);
     el.addEventListener("wheel", wheel, { passive: false });
     el.addEventListener("click", click, true);
     window.addEventListener("keydown", key);
@@ -155,11 +173,11 @@ export function useCameraNavigation(
     window.addEventListener("blur", release);
     return () => {
       cancelAnimationFrame(frame);
-      el.removeEventListener("pointerdown", down);
-      el.removeEventListener("pointermove", move);
-      el.removeEventListener("pointerup", up);
-      el.removeEventListener("pointercancel", up);
-      el.removeEventListener("lostpointercapture", up);
+      el.removeEventListener("pointerdown", down, true);
+      el.removeEventListener("pointermove", move, true);
+      el.removeEventListener("pointerup", up, true);
+      el.removeEventListener("pointercancel", up, true);
+      el.removeEventListener("lostpointercapture", up, true);
       el.removeEventListener("wheel", wheel);
       el.removeEventListener("click", click, true);
       window.removeEventListener("keydown", key);
@@ -167,5 +185,13 @@ export function useCameraNavigation(
       window.removeEventListener("blur", release);
     };
   }, [viewport]);
-  return { hand, activeHand: hand || temporaryHand, dragging, toggleHand: () => setHand(!hand) };
+  return {
+    hand,
+    activeHand: hand || temporaryHand,
+    dragging,
+    toggleHand: () => {
+      cancelArtwork();
+      setHand(!hand);
+    },
+  };
 }

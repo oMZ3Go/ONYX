@@ -1,0 +1,122 @@
+{
+  "konva": {
+    "status": "passed",
+    "baseURL": "http://127.0.0.1:3033",
+    "errors": [],
+    "mountCounts": [
+      {
+        "canvases": 1,
+        "svg": 0
+      },
+      {
+        "canvases": 1,
+        "svg": 0
+      },
+      {
+        "canvases": 1,
+        "svg": 0
+      },
+      {
+        "canvases": 1,
+        "svg": 0
+      },
+      {
+        "canvases": 1,
+        "svg": 0
+      }
+    ],
+    "editedText": "مرحبا ONY",
+    "exportDigests": {
+      "cold": "e5db3e5e3033920fa0406ee9d651736f2a349565dc2b497277971ad923694794",
+      "repeated": "e5db3e5e3033920fa0406ee9d651736f2a349565dc2b497277971ad923694794",
+      "workspaceChanged": "e5db3e5e3033920fa0406ee9d651736f2a349565dc2b497277971ad923694794",
+      "dpr2Cold": "e5db3e5e3033920fa0406ee9d651736f2a349565dc2b497277971ad923694794"
+    },
+    "checks": {
+      "coldRepeatIdentical": true,
+      "cameraSelectionRtlInvariant": true,
+      "dprInvariant": true
+    },
+    "accessibility": "- main:\n  - heading \"ONYX isolated engine experiment — synthetic geometry\" [level=1]\n  - navigation:\n    - link \"konva\":\n      - /url: /?engine=konva\n    - link \"fabric\":\n      - /url: /?engine=fabric\n    - link \"svg\":\n      - /url: /?engine=svg\n  - text: Arabic text\n  - textbox \"Arabic text\": مرحبا ONY\n  - text: X\n  - spinbutton \"X\": \"257\"\n  - button \"Select object 7\"\n  - region \"Native text reference\":\n    - paragraph: مرحبا أونيكس\n    - paragraph: لا\n    - paragraph: مُحَمَّد\n    - paragraph: ONYX 2026 — سوريا\n    - paragraph: Line one السطر الثاني\n    - paragraph: (123) — !؟\n  - status: Synthetic test surface; not production artwork"
+  },
+  "fabric": {
+    "status": "passed",
+    "baseURL": "http://127.0.0.1:3033",
+    "errors": [],
+    "mountCounts": [
+      {
+        "canvases": 2,
+        "svg": 0
+      },
+      {
+        "canvases": 2,
+        "svg": 0
+      },
+      {
+        "canvases": 2,
+        "svg": 0
+      },
+      {
+        "canvases": 2,
+        "svg": 0
+      },
+      {
+        "canvases": 2,
+        "svg": 0
+      }
+    ],
+    "editedText": "مرحبا ONY",
+    "exportDigests": {
+      "cold": "3ab1e9af5d55267a7c5879def9c8d29ea9f9c4e52d12da2c94a03b6954b66ea0",
+      "repeated": "3ab1e9af5d55267a7c5879def9c8d29ea9f9c4e52d12da2c94a03b6954b66ea0",
+      "workspaceChanged": "3ab1e9af5d55267a7c5879def9c8d29ea9f9c4e52d12da2c94a03b6954b66ea0",
+      "dpr2Cold": "3ab1e9af5d55267a7c5879def9c8d29ea9f9c4e52d12da2c94a03b6954b66ea0"
+    },
+    "checks": {
+      "coldRepeatIdentical": true,
+      "cameraSelectionRtlInvariant": true,
+      "dprInvariant": true
+    },
+    "accessibility": "- main:\n  - heading \"ONYX isolated engine experiment — synthetic geometry\" [level=1]\n  - navigation:\n    - link \"konva\":\n      - /url: /?engine=konva\n    - link \"fabric\":\n      - /url: /?engine=fabric\n    - link \"svg\":\n      - /url: /?engine=svg\n  - text: Arabic text\n  - textbox \"Arabic text\": مرحبا ONY\n  - text: X\n  - spinbutton \"X\": \"257\"\n  - button \"Select object 7\"\n  - region \"Native text reference\":\n    - paragraph: مرحبا أونيكس\n    - paragraph: لا\n    - paragraph: مُحَمَّد\n    - paragraph: ONYX 2026 — سوريا\n    - paragraph: Line one السطر الثاني\n    - paragraph: (123) — !؟\n  - status: Synthetic test surface; not production artwork"
+  },
+  "svg": {
+    "status": "failed-export-fidelity",
+    "baseURL": "http://127.0.0.1:3033",
+    "errors": [],
+    "mountCounts": [
+      {
+        "canvases": 0,
+        "svg": 1
+      },
+      {
+        "canvases": 0,
+        "svg": 1
+      },
+      {
+        "canvases": 0,
+        "svg": 1
+      },
+      {
+        "canvases": 0,
+        "svg": 1
+      },
+      {
+        "canvases": 0,
+        "svg": 1
+      }
+    ],
+    "editedText": "مرحبا ONY",
+    "exportDigests": {
+      "cold": "62e1f7e6508732c6ddecab43c39fd5970202c7c8767d42f08913b7484070d9b0",
+      "repeated": "16b280c089673fcc603ca742721fe77ad817237ece7e8a6968ab0b45ab5628c5",
+      "workspaceChanged": "16b280c089673fcc603ca742721fe77ad817237ece7e8a6968ab0b45ab5628c5",
+      "dpr2Cold": "62e1f7e6508732c6ddecab43c39fd5970202c7c8767d42f08913b7484070d9b0"
+    },
+    "checks": {
+      "coldRepeatIdentical": false,
+      "cameraSelectionRtlInvariant": true,
+      "dprInvariant": true
+    },
+    "accessibility": "- main:\n  - heading \"ONYX isolated engine experiment — synthetic geometry\" [level=1]\n  - navigation:\n    - link \"konva\":\n      - /url: /?engine=konva\n    - link \"fabric\":\n      - /url: /?engine=fabric\n    - link \"svg\":\n      - /url: /?engine=svg\n  - text: Arabic text\n  - textbox \"Arabic text\": مرحبا ONY\n  - text: X\n  - spinbutton \"X\": \"257\"\n  - button \"Select object 7\"\n  - img: مرحبا أونيكس لا مُحَمَّد ONYX 2026 — سوريا Line one السطر الثاني (123) — !؟\n  - region \"Native text reference\":\n    - paragraph: مرحبا أونيكس\n    - paragraph: لا\n    - paragraph: مُحَمَّد\n    - paragraph: ONYX 2026 — سوريا\n    - paragraph: Line one السطر الثاني\n    - paragraph: (123) — !؟\n  - status: Synthetic test surface; not production artwork"
+  }
+}
